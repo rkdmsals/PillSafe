@@ -1,0 +1,11 @@
+{
+  "name": "pillsafe",
+  "version": "1.0.0",
+  "description": "2023 소개딩\r 필세이프 개발 레포",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
