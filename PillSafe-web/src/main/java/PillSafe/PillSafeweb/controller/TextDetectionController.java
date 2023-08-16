@@ -26,32 +26,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class TextDetectionController {
 
-    @GetMapping("/home")
-    public String home(){
-        return "home";
+    @GetMapping("/")
+    public String mainWeb(){
+        return "mainWeb";
     }
 
     @GetMapping("/upload")
     public String showUploadForm() {
         return "upload";
     }
-
-//    @PostMapping("/upload")
-//    public String uploadImage(@RequestParam("file") MultipartFile file, Model model) {
-//        if (file.isEmpty()) {
-//            model.addAttribute("error", "Please select a file to upload.");
-//            return "upload";
-//        }
-//
-//        try {
-//            String result = DetectText.detectText(file.getBytes());
-//            model.addAttribute("result", result);
-//        } catch (IOException e) {
-//            model.addAttribute("error", "An error occurred while processing the image.");
-//        }
-//
-//        return "result";
-//    }
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -94,7 +77,8 @@ public class TextDetectionController {
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
         model.addAttribute("apiResponse", apiResponse);
-        return "apiResult";
+//        return "apiResult";
+        return "redirect:/show-api-response"; // 리다이렉트 요청
 
 //        try {
 //            ObjectMapper objectMapper = new ObjectMapper();
