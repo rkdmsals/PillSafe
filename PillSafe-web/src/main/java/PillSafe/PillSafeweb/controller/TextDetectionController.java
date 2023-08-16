@@ -107,7 +107,7 @@ public class TextDetectionController {
         try{
             String encodedItemName = URLEncoder.encode(itemName, "UTF-8"); // URL 인코딩 적용
 
-            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName;
+            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName + "&type=json";
 //            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + itemName;
 
             URL url = new URL(urlstr);
@@ -117,7 +117,6 @@ public class TextDetectionController {
             BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
 
             String returnLine;
-            result.append("<xmp>");
             while((returnLine = br.readLine()) != null){
                 result.append(returnLine + "\n");
             }
@@ -126,6 +125,6 @@ public class TextDetectionController {
         catch(Exception e){
             e.printStackTrace();
         }
-        return result+"</xmp>";
+        return result.toString();
     }
 }
