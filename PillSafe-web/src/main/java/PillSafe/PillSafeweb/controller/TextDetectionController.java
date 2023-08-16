@@ -22,6 +22,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+
 
 @Controller
 public class TextDetectionController {
@@ -76,29 +78,19 @@ public class TextDetectionController {
         // Make the API call and fetch data
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
-        model.addAttribute("apiResponse", apiResponse);
-//        return "apiResult";
+        // Parse JSON response using Jackson ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = objectMapper.readTree(apiResponse);
+
+            // Add parsed JSON data to the model
+//            model.addAttribute("jsonData", jsonNode);
+            model.addAttribute("apiResponse", apiResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "apiResult"; // 리다이렉트 요청
-
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            ApiResponse response = objectMapper.readValue(apiResponse, ApiResponse.class);
-//
-//            if (response != null) {
-//                model.addAttribute("apiResponse", response);
-//            } else {
-//                // Handle the case where the response is null
-//                // For example, you could set an error message in the model
-//                model.addAttribute("errorMessage", "Invalid API response.");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            // Handle the exception, e.g., set an error message in the model
-//            model.addAttribute("errorMessage", "Error parsing API response.");
-//        }
-//
-//        return "apiResult";
-
     }
 
 //    private String makeApiCall(String apiUrl, String serviceKey, String itemName) {
