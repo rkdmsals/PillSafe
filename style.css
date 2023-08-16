@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+body {
+    font-family: "Noto Sans KR", sans-serif;
+    width: auto;
+    padding-top: 200px;
+    padding-left: 28px;
+    background: #1A237E;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 67.51px;
+    display: inline-flex
+  }
+p{
+  color: #FFF;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/*요소 spacing*/
+  .login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+  .button-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+  .main-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+
+  .logo {
+    margin: 0 auto 20px;
+    display: block;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 20px;
+  }
+
+
+
+
+
+
+/*component button*/
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    align-self: stretch;
+
+    display: flex;
+    width: 327px;
+    height: 48px;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+
+    border-radius: 12px;
+    background: var(--button-bg-color, #FFF);
+    color: var(--button-text-color);
+
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+
+    transition: 0.5s;
+  }
+
+  button:active,
+  button:hover{
+    background: var(--button-hover-bg-color);
+    color: var(--button-hover-text-color, #fff);
+  }
+  button:focus {
+    background: var(--button-hover-bg-color);
+    outline: 0;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+  }
+
+  button.google {
+    --button-bg-color: #fff;
+    --button-hover-bg-color: #1A237E;
+    --button-text-color: #000;
+    --button-hover-text-color: #fff;
+  }
+
+  button.main {
+    --button-bg-color: #006FFD;
+    --button-hover-bg-color: #0050B7;
+    --button-text-color: #fff;
+  }
