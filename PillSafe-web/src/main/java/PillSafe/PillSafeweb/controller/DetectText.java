@@ -78,7 +78,8 @@ public class DetectText {
                 }
 
                 for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-                    resultBuilder.append("Text: ").append(annotation.getDescription()).append("\n");
+//                  resultBuilder.append(annotation.getDescription()).append("\n");
+                    resultBuilder.append(annotation.getDescription());
                 }
             }
 
