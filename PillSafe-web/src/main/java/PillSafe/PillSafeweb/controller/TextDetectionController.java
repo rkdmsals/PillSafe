@@ -78,7 +78,7 @@ public class TextDetectionController {
 
         model.addAttribute("apiResponse", apiResponse);
 //        return "apiResult";
-        return "redirect:/show-api-response"; // 리다이렉트 요청
+        return "apiResult"; // 리다이렉트 요청
 
 //        try {
 //            ObjectMapper objectMapper = new ObjectMapper();
