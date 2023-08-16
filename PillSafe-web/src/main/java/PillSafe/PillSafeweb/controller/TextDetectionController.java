@@ -23,37 +23,18 @@ import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static PillSafe.PillSafeweb.controller.DetectText.detectTextFromImage;
-
 @Controller
 public class TextDetectionController {
 
-    @GetMapping("/home")
-    public String home(){
-        return "home";
+    @GetMapping("/")
+    public String mainWeb(){
+        return "mainWeb";
     }
 
     @GetMapping("/upload")
     public String showUploadForm() {
         return "upload";
     }
-
-//    @PostMapping("/upload")
-//    public String uploadImage(@RequestParam("file") MultipartFile file, Model model) {
-//        if (file.isEmpty()) {
-//            model.addAttribute("error", "Please select a file to upload.");
-//            return "upload";
-//        }
-//
-//        try {
-//            String result = DetectText.detectText(file.getBytes());
-//            model.addAttribute("result", result);
-//        } catch (IOException e) {
-//            model.addAttribute("error", "An error occurred while processing the image.");
-//        }
-//
-//        return "result";
-//    }
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -63,7 +44,7 @@ public class TextDetectionController {
         }
 
         try {
-            String result = DetectText.detectText(file.getBytes());
+            String result = DetectText.detectTextFromImage(file.getBytes());
             System.out.println(result);
             redirectAttributes.addAttribute("textResult", result); // Add result as a parameter
         } catch (IOException e) {
@@ -79,7 +60,7 @@ public class TextDetectionController {
         // imageData를 byte[]로 변환 (데이터 URL 형식 제거)
         byte[] imageBytes = java.util.Base64.getDecoder().decode(imageData.split(",")[1]);
 
-        return detectTextFromImage(imageBytes);
+        return DetectText.detectTextFromImage(imageBytes);
     }
 
 
@@ -96,7 +77,8 @@ public class TextDetectionController {
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
         model.addAttribute("apiResponse", apiResponse);
-        return "apiResult";
+//        return "apiResult";
+        return "redirect:/show-api-response"; // 리다이렉트 요청
 
 //        try {
 //            ObjectMapper objectMapper = new ObjectMapper();
