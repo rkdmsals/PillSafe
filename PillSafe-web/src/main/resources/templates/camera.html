@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>카메라 사진 찍기</title>
+  <script>
+    async function capturePhotoAndDetectText() {
+      const videoElement = document.getElementById('video');
+      const canvasElement = document.getElementById('canvas');
+
+      const constraints = { video: true };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      videoElement.srcObject = stream;
+
+      videoElement.onloadedmetadata = () => {
+        canvasElement.width = videoElement.videoWidth;
+        canvasElement.height = videoElement.videoHeight;
+        canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
+        const photoData = canvasElement.toDataURL('image/png');
+
+        // photoData를 서버로 전송하여 detectText 함수 호출
+        // fetch('/detect-text', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
+        //   body: 'imageData=' + encodeURIComponent(photoData),
+        // })
+        //         .then(response => response.text())
+        //         .then(result => {
+        //           // 서버로부터 받은 결과(result)를 여기에서 처리하거나 표시
+        //           console.log(result);
+        //         })
+        //         .catch(error => {
+        //           console.error('Error:', error);
+        //         });
+        fetch('/detect-text', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'imageData=' + encodeURIComponent(photoData),
+        })
+                .then(response => response.text())
+                .then(result => {
+                  console.log(result); // 로그 출력
+
+                  // window.location.href = `/getDrugInfo?textResult=${encodeURIComponent(result)}`;
+
+                  // 받은 결과(result)를 GET 요청으로 getDrugInfo 함수로 전달
+                  fetch(`/getDrugInfo?textResult=${encodeURIComponent(result)}`)
+                          .then(response => response.text())
+                          .then(apiResponse => {
+                            console.log(apiResponse); // 로그 출력
+                            // 여기에서 apiResponse를 사용하거나 처리
+                          })
+                          .catch(error => {
+                            console.error('Error:', error);
+                          });
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+      };
+    }
+  </script>
+</head>
+<body>
+<h1>카메라 사진 찍기</h1>
+<video id="video" autoplay></video>
+<button onclick="capturePhotoAndDetectText()">사진 찍기</button>
+<canvas id="canvas" style="display: none;"></canvas>
+</body>
+</html>

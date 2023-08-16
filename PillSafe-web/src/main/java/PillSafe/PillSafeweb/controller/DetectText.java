@@ -54,7 +54,8 @@ public class DetectText {
         }
     }
 
-    public static String detectText(byte[] imageBytes) throws IOException {
+    //카메라 html 이후 새로 추가한 코드
+    public static String detectTextFromImage(byte[] imageBytes) throws IOException {
         List<AnnotateImageRequest> requests = new ArrayList<>();
 
         ByteString imgBytes = ByteString.copyFrom(imageBytes);
@@ -70,6 +71,7 @@ public class DetectText {
             List<AnnotateImageResponse> responses = response.getResponsesList();
 
             StringBuilder resultBuilder = new StringBuilder();
+            String firstResult = null;
 
             for (AnnotateImageResponse res : responses) {
                 if (res.hasError()) {
@@ -78,11 +80,18 @@ public class DetectText {
                 }
 
                 for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-                    resultBuilder.append("Text: ").append(annotation.getDescription()).append("\n");
+                    if (firstResult == null) {
+                        firstResult = annotation.getDescription();
+                    }
+                    resultBuilder.append(annotation.getDescription());
                 }
             }
 
-            return resultBuilder.toString();
+            if (firstResult != null) {
+                return firstResult;
+            } else {
+                return resultBuilder.toString();
+            }
         }
     }
 }
