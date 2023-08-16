@@ -1,5 +1,6 @@
 package PillSafe.PillSafeweb.controller;
 
+import PillSafe.PillSafeweb.domain.User;
 import PillSafe.PillSafeweb.repository.MemoryUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

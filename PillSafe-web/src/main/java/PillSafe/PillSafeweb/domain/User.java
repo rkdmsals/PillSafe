@@ -2,10 +2,11 @@ package PillSafe.PillSafeweb.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="user_table")
@@ -17,11 +18,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NonNull
     @Column(unique = true, length=20) //유일하고 최대 길이가 20.
     private String googleId;
-    @Column(name="user_googleId")
-    private String username;
+    @Column(name="user_username")
+    private String name;
     @Column(name="user_email")
     private String email;
 }
