@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriUtils;
 
@@ -16,6 +17,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 public class TextDetectionController {
@@ -30,21 +33,39 @@ public class TextDetectionController {
         return "upload";
     }
 
+//    @PostMapping("/upload")
+//    public String uploadImage(@RequestParam("file") MultipartFile file, Model model) {
+//        if (file.isEmpty()) {
+//            model.addAttribute("error", "Please select a file to upload.");
+//            return "upload";
+//        }
+//
+//        try {
+//            String result = DetectText.detectText(file.getBytes());
+//            model.addAttribute("result", result);
+//        } catch (IOException e) {
+//            model.addAttribute("error", "An error occurred while processing the image.");
+//        }
+//
+//        return "result";
+//    }
+
     @PostMapping("/upload")
-    public String uploadImage(@RequestParam("file") MultipartFile file, Model model) {
+    public String uploadImage(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
-            model.addAttribute("error", "Please select a file to upload.");
-            return "upload";
+            redirectAttributes.addFlashAttribute("error", "Please select a file to upload.");
+            return "redirect:/upload"; // Redirect back to the upload page
         }
 
         try {
             String result = DetectText.detectText(file.getBytes());
-            model.addAttribute("result", result);
+            System.out.println(result);
+            redirectAttributes.addAttribute("textResult", result); // Add result as a parameter
         } catch (IOException e) {
-            model.addAttribute("error", "An error occurred while processing the image.");
+            redirectAttributes.addFlashAttribute("error", "An error occurred while processing the image.");
         }
 
-        return "result";
+        return "redirect:/getDrugInfo"; // Redirect to the /getDrugInfo endpoint
     }
 
     @GetMapping("/getDrugInfo")
@@ -56,7 +77,7 @@ public class TextDetectionController {
         String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
 
         // Make the API call and fetch data
-        String apiResponse = makeApiCall(apiUrl, serviceKey, decodedTextResult);
+        String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
         model.addAttribute("apiResponse", apiResponse);
         return "apiResult";
@@ -84,13 +105,16 @@ public class TextDetectionController {
     private String makeApiCall(String apiUrl, String serviceKey, String itemName){
         StringBuffer result = new StringBuffer();
         try{
-            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + itemName;
+            String encodedItemName = URLEncoder.encode(itemName, "UTF-8"); // URL 인코딩 적용
+
+            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName;
+//            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + itemName;
 
             URL url = new URL(urlstr);
             HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
             urlconnection.setRequestMethod("GET");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
 
             String returnLine;
             result.append("<xmp>");
