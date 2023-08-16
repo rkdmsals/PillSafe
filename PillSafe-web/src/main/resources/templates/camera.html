@@ -33,7 +33,8 @@
               .then(response => response.text())
               .then(result => {
                 // 결과값을 resultElement에 표시
-                resultElement.textContent = result;
+                resultElement.textContent = "result";
+                result = "타이레놀"
 
                 window.location.href = `/getDrugInfo?textResult=${encodeURIComponent(result)}`;
               })
