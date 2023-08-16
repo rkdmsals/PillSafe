@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 
 @Entity
-@Table(name="member_table")
+@Table(name="user_table")
 @Builder
 @Getter
 @Setter

@@ -3,7 +3,7 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.*;
 
-public class MemoryUserRepository implements MemberRepository{
+public class MemoryUserRepository implements UserRepository{
 
     private static Map<Long, User> store = new HashMap<>();
     private static long sequence = 0L;

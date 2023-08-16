@@ -1,5 +1,6 @@
 package PillSafe.PillSafeweb.controller;
 
+import PillSafe.PillSafeweb.repository.MemoryUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,7 +12,7 @@ import org.springframework.ui.Model;
 public class GoogleLoginController {
 
     @Autowired
-    private UserRepository userRepository;
+    private MemoryUserRepository userRepository;
 
     @GetMapping("/loginSuccess")
     public String loginSuccess(@AuthenticationPrincipal OAuth2User oauth2User, Model model) {
