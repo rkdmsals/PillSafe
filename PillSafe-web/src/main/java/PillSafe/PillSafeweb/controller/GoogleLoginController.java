@@ -1,19 +1,34 @@
-import org.springframework.security.core.Authentication;
+package PillSafe.PillSafeweb.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GoogleLoginController {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/loginSuccess")
     public String loginSuccess(@AuthenticationPrincipal OAuth2User oauth2User, Model model) {
-        // OAuth2User를 통해 사용자 정보를 얻어옵니다.
+        String googleId = oauth2User.getAttribute("sub");
         String email = oauth2User.getAttribute("email");
         String name = oauth2User.getAttribute("name");
+
+        // 기존에 같은 Google ID로 저장된 사용자가 있는지 확인
+        User user = userRepository.findByGoogleId(googleId);
+        if (user == null) {
+            // 새로운 사용자라면 저장
+            user = new User();
+            user.setGoogleId(googleId);
+            user.setEmail(email);
+            user.setName(name);
+            userRepository.save(user);
+        }
 
         model.addAttribute("email", email);
         model.addAttribute("name", name);
@@ -21,3 +36,8 @@ public class GoogleLoginController {
         return "loginSuccess"; // 로그인 성공 페이지로 이동
     }
 }
+
+
+
+
+

@@ -1,28 +1,27 @@
-package hello.hellospring.repository;
-
-import hello.hellospring.domain.Member;
+package PillSafe.PillSafeweb.repository;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.*;
 
-public class MemoryMemberRepository implements MemberRepository{
+public class MemoryUserRepository implements MemberRepository{
 
-    private static Map<Long, Member> store = new HashMap<>();
+    private static Map<Long, User> store = new HashMap<>();
     private static long sequence = 0L;
 
     @Override
-    public Member save(Member member) {
-        member.setId(++sequence);   //멤버의 id값을 설정해주고 + sequence값 올려주기
-        store.put(member.getId(), member);  //map에 저장
-        return member;
+    public User save(User user) {
+        user.setId(++sequence);   //멤버의 id값을 설정해주고 + sequence값 올려주기
+        store.put(user.getId(), user);  //map에 저장
+        return user;
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return Optional.ofNullable(store.get(id));  //optional로 감싸서 반환해주기(null일 때를 고려)
     }
 
     @Override
-    public Optional<Member> findByName(String name) {
+    public Optional<User> findByName(String name) {
         return store.values().stream()   //람다 사용??
                 .filter(member -> member.getName().equals(name))
                 //member.getName()이 파라미터로 넘어온 name이랑 같은지 확인
@@ -33,7 +32,7 @@ public class MemoryMemberRepository implements MemberRepository{
     }
 
     @Override
-    public List<Member> findAll() {
+    public List<User> findAll() {
         return new ArrayList<>(store.values()); //멤버 반환
     }
 
