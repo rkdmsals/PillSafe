@@ -70,7 +70,24 @@ public class DetectText {
             BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
             List<AnnotateImageResponse> responses = response.getResponsesList();
 
+//            StringBuilder resultBuilder = new StringBuilder();
+//
+//            for (AnnotateImageResponse res : responses) {
+//                if (res.hasError()) {
+//                    resultBuilder.append("Error: ").append(res.getError().getMessage()).append("\n");
+//                    return resultBuilder.toString();
+//                }
+//
+//                for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+//                    resultBuilder.append(annotation.getDescription());
+//
+//                }
+//            }
+//
+//            return resultBuilder.toString();
+
             StringBuilder resultBuilder = new StringBuilder();
+            String firstResult = null;
 
             for (AnnotateImageResponse res : responses) {
                 if (res.hasError()) {
@@ -79,11 +96,18 @@ public class DetectText {
                 }
 
                 for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+                    if (firstResult == null) {
+                        firstResult = annotation.getDescription();
+                    }
                     resultBuilder.append(annotation.getDescription());
                 }
             }
 
-            return resultBuilder.toString();
+            if (firstResult != null) {
+                return firstResult;
+            } else {
+                return resultBuilder.toString();
+            }
         }
     }
 
