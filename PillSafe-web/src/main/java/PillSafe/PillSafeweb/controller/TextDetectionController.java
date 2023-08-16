@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +22,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static PillSafe.PillSafeweb.controller.DetectText.detectTextFromImage;
 
 @Controller
 public class TextDetectionController {
@@ -69,6 +72,17 @@ public class TextDetectionController {
 
         return "redirect:/getDrugInfo"; // Redirect to the /getDrugInfo endpoint
     }
+
+    @PostMapping("/detect-text")
+    @ResponseBody
+    public String detectText(@RequestParam("imageData") String imageData) throws IOException {
+        // imageData를 byte[]로 변환 (데이터 URL 형식 제거)
+        byte[] imageBytes = java.util.Base64.getDecoder().decode(imageData.split(",")[1]);
+
+        return detectTextFromImage(imageBytes);
+    }
+
+
 
     @GetMapping("/getDrugInfo")
     public String getDrugInfo(@RequestParam("textResult") String textResult, Model model) {
