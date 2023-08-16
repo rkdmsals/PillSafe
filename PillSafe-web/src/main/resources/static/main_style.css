@@ -5,47 +5,47 @@ body, h1, ul {
     margin: 0;
     padding: 0;
     font-family: "Noto Sans KR", sans-serif;
-  }
-  
-  /* Header styles */
-  header {
+}
+
+/* Header styles */
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #1A237E;
     padding: 10px 20px;
     color: white;
-  }
-  
-  .logo img {
+}
+
+.logo img {
     width: 180px;
     padding:8px 90px;
     height: auto;
     align-items: center;
-  }
-  
-  /* Main content styles */
-  main {
+}
+
+/* Main content styles */
+main {
     margin-top: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /*padding: 20px;*/
-  }
-  
-  .buttons {
+}
+
+.buttons {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  
-  p{
+}
+
+p{
     font-size: 42px;
     font-weight: 700;
     text-align: center;
-  }
-  .circle-button {
+}
+.circle-button {
     width: 200px;
     height: 200px;
     background-color: #1A237E;
@@ -59,6 +59,5 @@ body, h1, ul {
     align-items: center;
     cursor: pointer;
     margin: 0 auto;
-  }
-  
-  
+}
+
