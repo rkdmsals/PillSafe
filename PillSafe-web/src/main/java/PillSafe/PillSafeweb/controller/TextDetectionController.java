@@ -23,8 +23,6 @@ import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static PillSafe.PillSafeweb.controller.DetectText.detectTextFromImage;
-
 @Controller
 public class TextDetectionController {
 
@@ -63,7 +61,7 @@ public class TextDetectionController {
         }
 
         try {
-            String result = DetectText.detectText(file.getBytes());
+            String result = DetectText.detectTextFromImage(file.getBytes());
             System.out.println(result);
             redirectAttributes.addAttribute("textResult", result); // Add result as a parameter
         } catch (IOException e) {
@@ -79,7 +77,7 @@ public class TextDetectionController {
         // imageData를 byte[]로 변환 (데이터 URL 형식 제거)
         byte[] imageBytes = java.util.Base64.getDecoder().decode(imageData.split(",")[1]);
 
-        return detectTextFromImage(imageBytes);
+        return DetectText.detectTextFromImage(imageBytes);
     }
 
 

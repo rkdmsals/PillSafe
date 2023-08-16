@@ -70,22 +70,6 @@ public class DetectText {
             BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
             List<AnnotateImageResponse> responses = response.getResponsesList();
 
-//            StringBuilder resultBuilder = new StringBuilder();
-//
-//            for (AnnotateImageResponse res : responses) {
-//                if (res.hasError()) {
-//                    resultBuilder.append("Error: ").append(res.getError().getMessage()).append("\n");
-//                    return resultBuilder.toString();
-//                }
-//
-//                for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-//                    resultBuilder.append(annotation.getDescription());
-//
-//                }
-//            }
-//
-//            return resultBuilder.toString();
-
             StringBuilder resultBuilder = new StringBuilder();
             String firstResult = null;
 
@@ -108,40 +92,6 @@ public class DetectText {
             } else {
                 return resultBuilder.toString();
             }
-        }
-    }
-
-
-    public static String detectText(byte[] imageBytes) throws IOException {
-        List<AnnotateImageRequest> requests = new ArrayList<>();
-
-        ByteString imgBytes = ByteString.copyFrom(imageBytes);
-
-        Image img = Image.newBuilder().setContent(imgBytes).build();
-        Feature feat = Feature.newBuilder().setType(Feature.Type.TEXT_DETECTION).build();
-        AnnotateImageRequest request =
-                AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
-        requests.add(request);
-
-        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
-            BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
-            List<AnnotateImageResponse> responses = response.getResponsesList();
-
-            StringBuilder resultBuilder = new StringBuilder();
-
-            for (AnnotateImageResponse res : responses) {
-                if (res.hasError()) {
-                    resultBuilder.append("Error: ").append(res.getError().getMessage()).append("\n");
-                    return resultBuilder.toString();
-                }
-
-                for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-//                  resultBuilder.append(annotation.getDescription()).append("\n");
-                    resultBuilder.append(annotation.getDescription());
-                }
-            }
-
-            return resultBuilder.toString();
         }
     }
 }
