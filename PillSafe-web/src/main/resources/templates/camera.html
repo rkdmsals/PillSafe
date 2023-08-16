@@ -3,7 +3,7 @@
 <head>
   <title>카메라 사진 찍기</title>
   <script>
-    async function capturePhoto() {
+    async function capturePhotoAndDetectText() {
       const videoElement = document.getElementById('video');
       const canvasElement = document.getElementById('canvas');
 
@@ -17,8 +17,22 @@
         canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
         const photoData = canvasElement.toDataURL('image/png');
 
-        // 이제 `photoData`를 백엔드로 전송하여 저장하거나 처리할 수 있습니다.
-        // 예를 들어, fetch API를 사용하여 스프링 부트 엔드포인트로 전송합니다.
+        // photoData를 서버로 전송하여 detectText 함수 호출
+        fetch('/detect-text', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'imageData=' + encodeURIComponent(photoData),
+        })
+                .then(response => response.text())
+                .then(result => {
+                  // 서버로부터 받은 결과(result)를 여기에서 처리하거나 표시
+                  console.log(result);
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
       };
     }
   </script>
@@ -26,7 +40,7 @@
 <body>
 <h1>카메라 사진 찍기</h1>
 <video id="video" autoplay></video>
-<button onclick="capturePhoto()">사진 찍기</button>
+<button onclick="capturePhotoAndDetectText()">사진 찍기</button>
 <canvas id="canvas" style="display: none;"></canvas>
 </body>
 </html>
