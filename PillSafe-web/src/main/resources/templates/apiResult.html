@@ -1,10 +1,41 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>API Result 약 정보 보기!</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Drug Information</h1>-->
+<!--<div th:each="item : ${apiResponse.body.items}">-->
+<!--    <h2 th:text="${item.entpName}"></h2>-->
+<!--    <p><strong>Item Name:</strong> <span th:text="${item.itemName}"></span></p>-->
+<!--    <p><strong>Effect:</strong> <span th:text="${item.efcyQesitm}"></span></p>-->
+<!--    <p><strong>Usage:</strong> <span th:text="${item.useMethodQesitm}"></span></p>-->
+<!--    <p><strong>Warning:</strong> <span th:text="${item.atpnWarnQesitm}"></span></p>-->
+<!--    <p><strong>Precaution:</strong> <span th:text="${item.atpnQesitm}"></span></p>-->
+<!--    <p><strong>Interaction:</strong> <span th:text="${item.intrcQesitm}"></span></p>-->
+<!--    <p><strong>Side Effects:</strong> <span th:text="${item.seQesitm}"></span></p>-->
+<!--    <p><strong>Storage:</strong> <span th:text="${item.depositMethodQesitm}"></span></p>-->
+<!--    <p><strong>Image:</strong> <img th:src="${item.itemImage}" alt="Item Image" style="max-width: 200px;"></p>-->
+<!--    <hr>-->
+<!--</div>-->
+
+<!--<div th:if="${apiResponse != null}">-->
+<!--    &lt;!&ndash; Loop through and display item information &ndash;&gt;-->
+<!--</div>-->
+<!--<div th:if="${errorMessage != null}">-->
+<!--    <p th:text="${errorMessage}"></p>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>api Result! 약의 정보 보기</title>
+    <title>API Result</title>
 </head>
 <body>
-<p th:text="${apiResponse}"></p>
+<pre th:text="${apiResponse}"></pre>
 </body>
 </html>

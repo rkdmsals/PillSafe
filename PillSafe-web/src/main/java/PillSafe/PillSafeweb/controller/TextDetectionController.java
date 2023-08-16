@@ -20,6 +20,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 public class TextDetectionController {
 
@@ -81,6 +83,26 @@ public class TextDetectionController {
 
         model.addAttribute("apiResponse", apiResponse);
         return "apiResult";
+
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            ApiResponse response = objectMapper.readValue(apiResponse, ApiResponse.class);
+//
+//            if (response != null) {
+//                model.addAttribute("apiResponse", response);
+//            } else {
+//                // Handle the case where the response is null
+//                // For example, you could set an error message in the model
+//                model.addAttribute("errorMessage", "Invalid API response.");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            // Handle the exception, e.g., set an error message in the model
+//            model.addAttribute("errorMessage", "Error parsing API response.");
+//        }
+//
+//        return "apiResult";
+
     }
 
 //    private String makeApiCall(String apiUrl, String serviceKey, String itemName) {
