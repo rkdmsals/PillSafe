@@ -18,8 +18,6 @@ public class BoardController {
 
     @PostMapping("/board/boardWritedo")
     public String boardWritedo(Board board){
-        System.out.println(board.getTitle());
-        System.out.println("안녕");
         boardService.write(board);
         return "redirect:/postSuccess";
     }
