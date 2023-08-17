@@ -159,6 +159,6 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,java,gradles
 
 #application.properties
-.application-sec.properties
+.application.properties
 
 secret/
