@@ -97,9 +97,9 @@ public class TextDetectionController {
         // Make the API call and fetch data
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
-//        model.addAttribute("apiResponse", apiResponse);
+//       model.addAttribute("apiResponse", apiResponse);
 
-        Parse(apiResponse);
+        Parse(apiResponse);  //파싱 로그: 터미널로 확인용
         jsonResult(apiResponse, model);
 
         return "apiResult"; // 리다이렉트 요청
