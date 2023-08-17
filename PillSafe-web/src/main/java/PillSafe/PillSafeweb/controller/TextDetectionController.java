@@ -3,6 +3,7 @@ package PillSafe.PillSafeweb.controller;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,20 +48,31 @@ public class TextDetectionController {
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+        // 화이트리스트에 허용된 파일 확장자들을 정의합니다.
+        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png");
+
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Please select a file to upload.");
-            return "redirect:/upload"; // Redirect back to the upload page
+            return "redirect:/upload"; // 업로드 페이지로 리다이렉트
         }
 
-        try {
-            String result = DetectText.detectTextFromImage(file.getBytes());
-            System.out.println(result);
-            redirectAttributes.addAttribute("textResult", result); // Add result as a parameter
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("error", "An error occurred while processing the image.");
+        // 업로드된 파일의 확장자를 추출합니다.
+        String originalFilename = file.getOriginalFilename();
+        String fileExtension = StringUtils.getFilenameExtension(originalFilename);
+
+        if (fileExtension != null && allowedExtensions.contains(fileExtension.toLowerCase())) {
+            try {
+                String result = DetectText.detectTextFromImage(file.getBytes());
+                System.out.println(result);
+                redirectAttributes.addAttribute("textResult", result); // 결과를 파라미터로 추가
+            } catch (IOException e) {
+                redirectAttributes.addFlashAttribute("error", "An error occurred while processing the image.");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Only images with allowed extensions are allowed.");
         }
 
-        return "redirect:/getDrugInfo"; // Redirect to the /getDrugInfo endpoint
+        return "redirect:/getDrugInfo"; // /getDrugInfo 엔드포인트로 리다이렉트
     }
 
     @PostMapping("/detect-text")
