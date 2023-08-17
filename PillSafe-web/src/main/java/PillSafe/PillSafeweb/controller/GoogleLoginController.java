@@ -15,7 +15,7 @@ public class GoogleLoginController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/loginSuccess")
+    @GetMapping("/login")
     public String loginSuccess(@AuthenticationPrincipal OAuth2User oauth2User, Model model) {
         String googleId = oauth2User.getAttribute("sub");
         String email = oauth2User.getAttribute("email");

@@ -28,7 +28,7 @@ dependencies {
 	implementation 'com.google.cloud:google-cloud-vision:3.20.0'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation "mysql:mysql-connector-java:8.0.31"
+	runtimeOnly 'mysql:mysql-connector-java:8.0.31'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
