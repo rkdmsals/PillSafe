@@ -96,19 +96,7 @@ public class TextDetectionController {
         return "redirect:/getSearchInfo"; // /getDrugInfo 엔드포인트로 리다이렉트
     }
 
-    @GetMapping("/searchSelected")
-    public String searchSelected(@RequestParam("item") String itemJson, Model model) {
-        try {
-            JSONParser parser = new JSONParser();
-            JSONObject item = (JSONObject) parser.parse(itemJson);
 
-            model.addAttribute("item", item);
-        } catch (ParseException e) {
-            e.printStackTrace(); // 예외 처리는 실제 상황에 맞게 수정
-        }
-
-        return "searchSelected"; // View 이름 리턴 (searchSelected.html 등)
-    }
 
 
 
