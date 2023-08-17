@@ -1,5 +1,6 @@
 package PillSafe.PillSafeweb.controller;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 @Controller
 public class TextDetectionController {
@@ -76,52 +83,64 @@ public class TextDetectionController {
         // Make the API call and fetch data
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
-        model.addAttribute("apiResponse", apiResponse);
-//        return "apiResult";
+//        model.addAttribute("apiResponse", apiResponse);
+
+        Parse(apiResponse);
+        jsonResult(apiResponse, model);
+
         return "apiResult"; // 리다이렉트 요청
-
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            ApiResponse response = objectMapper.readValue(apiResponse, ApiResponse.class);
-//
-//            if (response != null) {
-//                model.addAttribute("apiResponse", response);
-//            } else {
-//                // Handle the case where the response is null
-//                // For example, you could set an error message in the model
-//                model.addAttribute("errorMessage", "Invalid API response.");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            // Handle the exception, e.g., set an error message in the model
-//            model.addAttribute("errorMessage", "Error parsing API response.");
-//        }
-//
-//        return "apiResult";
-
     }
 
-//    private String makeApiCall(String apiUrl, String serviceKey, String itemName) {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        // Construct the API request URL with required parameters
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
-//                .queryParam("serviceKey", serviceKey)
-//                .queryParam("itemName", itemName);
-//
-//
-//        System.out.println(serviceKey);
-//        System.out.println(builder.build(false).toUriString());
-//
-////        builder.build(false).toUri();
-////        URI uri = new URI(builder.build(false).toUri());
-////        String jsonString = restTemplate.getForObject(uri, String.class);
-//
-//        return restTemplate.getForObject(builder.build(false).toUri(), String.class);
-//    }
+    private void jsonResult(String apiString, Model model) {
+        String result = apiString; // JSON 결과 문자열
+
+        // Parse JSON result and obtain items
+        JSONParserExample parserExample = new JSONParserExample();
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = parserExample.parseJson(result);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JSONArray items = parserExample.getItems(jsonObject);
+
+        model.addAttribute("items", items);
+    }
+
+    private void Parse(String result){
+        try {
+            JSONParser jsonParser = new JSONParser();
+            JSONObject object = (JSONObject)jsonParser.parse(result);
+
+            JSONObject parse_object = (JSONObject) object.get("body");
+            JSONArray array = (JSONArray) parse_object.get("items");
+
+            for(int i=0; i<array.size(); i++) {
+
+                System.out.println("항목[" + (i + 1) + "] ===========================================");
+
+                //배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+                JSONObject tmp = (JSONObject) array.get(i);
+
+                //JSON name으로 추출
+                System.out.println("업체명 ==> " + tmp.get("entpName"));
+                System.out.println("제품명 ==> " + tmp.get("itemName"));
+                System.out.println("효능 ==> " + tmp.get("efcyQesitm"));
+                System.out.println("사용법 ==> " + tmp.get("useMethodQesitm"));
+                System.out.println("주의사항 경고 ==> " + tmp.get("atpnWarnQesitm"));
+                System.out.println("이미지 경로 ==>" + tmp.get("itemImage"));
+            }
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     private String makeApiCall(String apiUrl, String serviceKey, String itemName){
-        StringBuffer result = new StringBuffer();
+//        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         try{
             String encodedItemName = URLEncoder.encode(itemName, "UTF-8"); // URL 인코딩 적용
 
@@ -134,11 +153,21 @@ public class TextDetectionController {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
 
+            // StringBuffer 일때
+//            String returnLine;
+//            while((returnLine = br.readLine()) != null){
+//                result.append(returnLine);
+//            }
+//            urlconnection.disconnect();
+
+            // String Builder 일때
             String returnLine;
             while((returnLine = br.readLine()) != null){
-                result.append(returnLine + "\n");
+                result.append(returnLine);
             }
+            br.close();
             urlconnection.disconnect();
+            System.out.println(result.toString());
         }
         catch(Exception e){
             e.printStackTrace();

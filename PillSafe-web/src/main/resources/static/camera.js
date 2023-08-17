@@ -30,6 +30,8 @@ async function capturePhotoAndDetectText() {
             // 결과값을 resultElement에 표시
             resultElement.textContent = result;
 
+            result = "타이레놀";
+
             window.location.href = `/getDrugInfo?textResult=${encodeURIComponent(result)}`;
         })
         .catch(error => {
