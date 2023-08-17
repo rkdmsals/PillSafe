@@ -1,15 +1,23 @@
 package PillSafe.PillSafeweb.repository;
 
+
+import PillSafe.PillSafeweb.Entity.User;
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByGoogleId(String googleId);
-    User save(User user); //회원을 저장하면 저장된 회원이 반환된다.
-    Optional<User> findById(Long id); //id로 회원을 찾기
-//    Optional<User> findByName(String name);
+    void flush();
+    PillSafe.PillSafeweb.Entity.User findByGoogleId(String googleId);
+    User findByEmail(String email);
+    List<User> findByAgeGreaterThan(int age);
+    List<User> searchUsersByNameKeyword(String keyword);
     List<User> findAll();
+    List<User> findAllById(Iterable<Long> ids);
+    long count();
+    void deleteById(Long id);
+    void deleteAll();
+
 }
