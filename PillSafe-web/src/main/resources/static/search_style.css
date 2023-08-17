@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
 
 /* Reset some default styles */
-body, h1, ul {
+body, h2 {
     margin: 0;
     padding: 0;
     font-family: "Noto Sans KR", sans-serif;
@@ -30,51 +30,42 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
     /*padding: 20px;*/
 }
 
-.title-wrapper{
-    padding: 80px 24px;
-    width: 100%;
-}
-
-.button-wrapper{
-
-}
-
-p{
-    font-size: 42px;
-    font-weight: 700;
-    text-align: left;
-    padding-left: 24px;
-    margin: 0;
-}
-.main-button {
+.title-wrapper {
     display: flex;
-    padding: 140px 34px;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+form{
+    text-align: center;
+    align-items: center;
+}
+
+.primary-button{
+    display: inline-flex;
+    padding: 10px 24px;
+    margin-top: 40px;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    border-radius: 20px;
+    background: #1A237E;
 
-    background: #D9D9D9;
-    border: 1px solid #000;
-
-    color: #000;
-    text-align: center;
-    font-size: 32px;
+    color: white;
+    font-size: 24px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    letter-spacing: -1.6px;
-
-    cursor: pointer;
-    margin: 0 auto;
+    letter-spacing: -1.8px;
 }
 
-#camera-button{
-    float:left;
-}
-
-#search-button{
-    float:right;
+.text-field{
+    width:200px;
+    height:60px;
+    font-size:20px;
 }
