@@ -14,9 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.UriUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -31,10 +29,41 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 @Controller
 public class TextDetectionController {
+
+    public String secKey(){
+        String s_value = null;
+        String line = null;
+        String variableName = null;
+        try {
+            FileReader fileReader = new FileReader("secret_key.init");
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while ((line = bufferedReader.readLine()) != null) {
+                // 여기서 line을 파싱하여 변수 추출
+                // 예를 들어, "변수명=값" 형태로 저장된 텍스트 파일이라면,
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    variableName = parts[0];
+                    s_value = parts[1];
+                }
+            }
+            bufferedReader.close();
+        }
+        catch(IOException e){
+                e.getStackTrace();
+            }
+        finally {
+            return s_value;
+        }
+
+    }
+
 
     @GetMapping("/")
     public String mainWeb(){
@@ -96,81 +125,80 @@ public class TextDetectionController {
     }
 
 
+
+
     @GetMapping("/getDrugInfo")
     public String getDrugInfo(@RequestParam("textResult") String textResult, Model model) {
-        String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
-        String serviceKey = "qAKbXRR4042vBsi3b39VoNv8bKlELiGAo046m1w5E3%2FifqQqoz%2B%2Fp9cel5cGeKAtD0HhA9RDU65b8NIGvd4DqQ%3D%3D";
 
-        // Decode the URL-encoded textResult parameter
-        String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
+            String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
+            String secretkey = secKey();
 
-        // Make the API call and fetch data
-        String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
+            // Decode the URL-encoded textResult parameter
+            String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
 
-        jsonResult(apiResponse, model);
+            // Make the API call and fetch data
+            String apiResponse = makeApiCall(apiUrl, secretkey, textResult);
 
-        return "apiResult"; // 리다이렉트 요청
-    }
+            jsonResult(apiResponse, model);
 
-    @GetMapping("/getSearchInfo")
-    public String getSearchInfo(@RequestParam("textResult") String textResult, Model model) {
-        String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
-        String serviceKey = "qAKbXRR4042vBsi3b39VoNv8bKlELiGAo046m1w5E3%2FifqQqoz%2B%2Fp9cel5cGeKAtD0HhA9RDU65b8NIGvd4DqQ%3D%3D";
-
-        // Decode the URL-encoded textResult parameter
-        String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
-
-        // Make the API call and fetch data
-        String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
-
-
-        jsonResult(apiResponse, model);
-
-        return "searchResult"; // 리다이렉트 요청
-    }
-
-    private void jsonResult(String apiString, Model model) {
-
-        // Parse JSON result and obtain items
-        JSONParserExample parserExample = new JSONParserExample();
-        JSONObject jsonObject;
-        try {
-            jsonObject = parserExample.parseJson(apiString);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+            return "apiResult"; // 리다이렉트 요청
         }
-        JSONArray items = parserExample.getItems(jsonObject);
 
-        model.addAttribute("items", items);
-    }
+        @GetMapping("/getSearchInfo")
+        public String getSearchInfo (@RequestParam("textResult") String textResult, Model model){
+            String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
+            String serviceKey = secKey();
 
-    private String makeApiCall(String apiUrl, String serviceKey, String itemName){
-//        StringBuffer result = new StringBuffer();
-        StringBuilder result = new StringBuilder();
-        try{
-            String encodedItemName = URLEncoder.encode(itemName, StandardCharsets.UTF_8); // URL 인코딩 적용
+            // Decode the URL-encoded textResult parameter
+            String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
 
-            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName + "&type=json";
+            // Make the API call and fetch data
+            String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
-            URL url = new URL(urlstr);
-            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-            urlconnection.setRequestMethod("GET");
+            jsonResult(apiResponse, model);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
+            return "searchResult"; // 리다이렉트 요청
+        }
 
-            String returnLine;
-            while((returnLine = br.readLine()) != null){
-                result.append(returnLine);
+        private void jsonResult (String apiString, Model model){
+
+            // Parse JSON result and obtain items
+            JSONParserExample parserExample = new JSONParserExample();
+            JSONObject jsonObject;
+            try {
+                jsonObject = parserExample.parseJson(apiString);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
             }
-            br.close();
-            urlconnection.disconnect();
-            System.out.println(result);
+            JSONArray items = parserExample.getItems(jsonObject);
+
+            model.addAttribute("items", items);
         }
-        catch(Exception e){
-            e.printStackTrace();
+
+        private String makeApiCall (String apiUrl, String serviceKey, String itemName){
+//        StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
+            try {
+                String encodedItemName = URLEncoder.encode(itemName, StandardCharsets.UTF_8); // URL 인코딩 적용
+
+                String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName + "&type=json";
+
+                URL url = new URL(urlstr);
+                HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+                urlconnection.setRequestMethod("GET");
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
+
+                String returnLine;
+                while ((returnLine = br.readLine()) != null) {
+                    result.append(returnLine);
+                }
+                br.close();
+                urlconnection.disconnect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result.toString();
         }
-        return result.toString();
+
     }
-
-
-}
