@@ -130,7 +130,6 @@ public class TextDetectionController {
             JSONArray array = (JSONArray) parse_object.get("items");
 
             for(int i=0; i<array.size(); i++) {
-
                 System.out.println("항목[" + (i + 1) + "] ===========================================");
 
                 //배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
