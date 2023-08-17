@@ -1,0 +1,2016 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+
+/* Reset some default styles */
+body, h1, ul, h2 {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A237E;
+    padding: 10px 20px;
+    color: white;
+}
+
+.logo img {
+    width: 180px;
+    padding:8px 90px;
+    height: auto;
+    align-items: center;
+}
+
+/* Main content styles */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*padding: 20px;*/
+}
+
+.form-wrapper{
+    padding: 7px 12px 7px 12px;
+    text-align: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* [div position fixed 고정 표시 설정] */
+/*
+[div 태그쪽 추가 지정 사항]
+width, height, margin, padding, border, background-color
+필요시 - top, left 다시 커스텀 수정
+*/
+.cDivFixedFull {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* [div position relative 가로 위치 정렬] */
+/*
+[div 태그쪽 추가 지정 사항]
+width, height, margin, padding, border, background-color
+필요시 - top, left 다시 커스텀 수정
+*/
+.cDivRelativeW {
+    float: left;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+
+/* [div position relative 세로 위치 정렬] */
+/*
+[div 태그쪽 추가 지정 사항]
+width, height, margin, padding, border, background-color
+필요시 - top, left 다시 커스텀 수정
+*/
+.cDivRelativeH {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : div p 태그 포함 - 텍스트 text 히든 hidden 숨김 처리] */
+/*
+[div 태그쪽 추가 지정 사항]
+width, height, margin, padding, border, background-color
+float, position, top, left
+*/
+.cDivPtagHmHidden {
+    /* p 태그 수직 정렬 위함 */
+    display: table;
+
+    /* p 태그 길이 초과시 히든 처리 위함 */
+    table-layout: fixed;
+
+    /* 블루 하이라이트 제거 */
+    -webkit-tap-highlight-color : rgba(0,0,0,0);
+}
+/* [공통 : p 태그 - 텍스트 히든 처리] */
+/*
+[p 태그쪽 추가 지정 사항]
+color, font-size, font-style [기울기], font-weight [굵기]
+font-family [글씨체]
+text-align : left, right, center, justify (문단 양쪽)
+*/
+.cPtagHmHidden {
+    /* 텍스트 수평 정렬 실시 */
+    text-align : center;
+
+    /* 텍스트 수직 정렬 실시 */
+    vertical-align: middle;
+
+    /* p 태그 수직 정렬을 위한 display 설정 */
+    display: table-cell;
+
+    /* p 태그 길이 초과시 히든 처리 위함 */
+    table-layout: fixed;
+
+    /* p 태그 길이 초과시 히든 처리 위함 */
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : div p 태그 포함 - 텍스트 text 표시] */
+/*
+[div 태그쪽 추가 지정 사항]
+width, height, margin, padding, border, background-color
+float, position, top, left
+*/
+.cDivPtagHmVisible {
+    /* p 태그 수직 정렬 위함 */
+    display: table;
+
+    /* p 태그 길이 초과시 히든 처리 위함 */
+    table-layout: fixed;
+
+    /* 블루 하이라이트 제거 */
+    -webkit-tap-highlight-color : rgba(0,0,0,0);
+}
+/* [공통 : p 태그] */
+/*
+[p 태그쪽 추가 지정 사항]
+color, font-size, font-style [기울기], font-weight [굵기]
+font-family [글씨체]
+text-align : left, right, center, justify (문단 양쪽)
+*/
+.cPtagHmVisible {
+    /* 텍스트 수평 정렬 실시 */
+    text-align : center;
+
+    /* 텍스트 수직 정렬 실시 */
+    vertical-align: middle;
+
+    /* p 태그 수직 정렬을 위한 display 설정 */
+    display: table-cell;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : 커서 cursor 스타일 지정] */
+.cCursorPointer {
+    /* 기본 화살표 모양 */
+    cursor: pointer;
+}
+.cCursorDefault {
+    /* 포인터 손 모양 */
+    cursor: default;
+}
+.cCursorHelp {
+    /* 물음표 모양 */
+    cursor: help;
+}
+.cCursorMove {
+    /* 이동 모양 */
+    cursor: move;
+}
+.cCursorWait {
+    /* 모래 시계 모양 */
+    cursor: wait;
+}
+.cCursorCrosshair {
+    /* 십자선 모양 */
+    cursor: crosshair;
+}
+.cCursorProgress {
+    /* 기본 + 모래 시계 모양 */
+    cursor: progress;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : div 배경 이미지 background image 사이즈 지정] */
+/*
+[div 태그쪽 추가 지정 사항]
+background-image : url(../assets/image/white_before_icon.png); : 경로 지정해야한다
+*/
+.cBgImageCenterSize {
+    /* 반복 표시 안함 */
+    background-repeat : no-repeat;
+
+    /* 가로 중앙 정렬 실시 */
+    background-position : center center;
+
+    /* 사이즈 가로, 세로 설정 */
+    background-size : 90% 100%;
+}
+.cBgImageLeftSize {
+    /* 반복 표시 안함 */
+    background-repeat : no-repeat;
+
+    /* 가로 왼쪽 정렬 실시 */
+    background-position : left center;
+
+    /* 사이즈 가로, 세로 설정 */
+    background-size : 80% 100%;
+}
+.cBgImageRightSize {
+    /* 반복 표시 안함 */
+    background-repeat : no-repeat;
+
+    /* 가로 왼쪽 정렬 실시 */
+    background-position : right center;
+
+    /* 사이즈 가로, 세로 설정 */
+    background-size : 80% 100%;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : 검정색 배경 불투명도 설정 rgba , opacity - 자식에게 적용 안됨] */
+.cBgOpacityBlack_3 {
+    background-color:rgba(0, 0, 0, 0.3);
+}
+.cBgOpacityBlack_5 {
+    background-color:rgba(0, 0, 0, 0.5);
+}
+.cBgOpacityBlack_7 {
+    background-color:rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* [공통 : background-color 배경 색상 정의] */
+.cBgNull {
+    background-color: #00000000;
+}
+.cBgBlueBold {
+    background-color: #076ede;
+}
+.cBgGrayBold {
+    background-color: #555d63;
+}
+.cBgGreenBold {
+    background-color: #238e3c;
+}
+.cBgRedBold {
+    background-color: #bb2533;
+}
+.cBgYellowBold {
+    background-color: #deab11;
+}
+.cBgSkyBold {
+    background-color: #12889a;
+}
+.cBgWhiteBold {
+    background-color: #e5e5e6;
+}
+.cBgBlackBold {
+    background-color: #000000;
+}
+.cBgPupleBold {
+    background-color: #773191;
+}
+.cBgOrangeBold {
+    background-color: #f05624;
+}
+.cBgPinkBold {
+    background-color: #f47a7e;
+}
+
+.cBgBlueMiddle {
+    background-color: #007bff;
+}
+.cBgGrayMiddle {
+    background-color: #6c757d;
+}
+.cBgGreenMiddle {
+    background-color: #28a745;
+}
+.cBgRedMiddle {
+    background-color: #dc3545;
+}
+.cBgYellowMiddle {
+    background-color: #ffc107;
+}
+.cBgSkyMiddle {
+    background-color: #17a2b8;
+}
+.cBgWhiteMiddle {
+    background-color: #f8f9fa;
+}
+.cBgBlackMiddle {
+    background-color: #343a40;
+}
+.cBgPupleMiddle {
+    background-color: #9f4098;
+}
+.cBgOrangeMiddle {
+    background-color: #f78d1f;
+}
+.cBgPinkMiddle {
+    background-color: #f68d91;
+}
+
+.cBgBlueLight {
+    background-color: #3d98fa;
+}
+.cBgGrayLight {
+    background-color: #b1b5b8;
+}
+.cBgGreenLight {
+    background-color: #48d368;
+}
+.cBgRedLight {
+    background-color: #f17480;
+}
+.cBgYellowLight {
+    background-color: #f8d772;
+}
+.cBgSkyLight {
+    background-color: #4dd0e5;
+}
+.cBgWhiteLight {
+    background-color: #ffffff;
+}
+.cBgBlackLight {
+    background-color: #5f6060;
+}
+.cBgPupleLight {
+    background-color: #bd97c8;
+}
+.cBgOrangeLight {
+    background-color: #fac68d;
+}
+.cBgPinkLight {
+    background-color: #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : 마우스 hover 올림 시 배경 색상 background color 변경] */
+.cMouseHoverBgBlueBold:hover {
+    background-color: #076ede;
+}
+.cMouseHoverBgGrayBold:hover {
+    background-color: #555d63;
+}
+.cMouseHoverBgGreenBold:hover {
+    background-color: #238e3c;
+}
+.cMouseHoverBgRedBold:hover {
+    background-color: #bb2533;
+}
+.cMouseHoverBgYellowBold:hover {
+    background-color: #deab11;
+}
+.cMouseHoverBgSkyBold:hover {
+    background-color: #12889a;
+}
+.cMouseHoverBgWhiteBold:hover {
+    background-color: #e5e5e6;
+}
+.cMouseHoverBgBlackBold:hover {
+    background-color: #292f34;
+}
+.cMouseHoverBgPupleBold:hover {
+    background-color: #773191;
+}
+.cMouseHoverBgOrangeBold:hover {
+    background-color: #f05624;
+}
+.cMouseHoverBgPinkBold:hover {
+    background-color: #f47a7e;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : shadow dox 박스 그림자 여부 설정] */
+.cShadowBoxBlue1px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 1px 1px 1px 1px #076ede;
+}
+.cShadowBoxBlue2px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 2px 2px 2px 2px #076ede;
+}
+.cShadowBoxBlue3px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 3px 3px 3px 3px #076ede;
+}
+
+.cShadowBoxGray1px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 1px 1px 1px 1px #cccccc;
+}
+.cShadowBoxGray2px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 2px 2px 2px 2px #cccccc;
+}
+.cShadowBoxGray3px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 3px 3px 3px 3px #cccccc;
+}
+
+.cShadowBoxBlack1px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 1px 1px 1px 1px #000000;
+}
+.cShadowBoxBlack2px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 2px 2px 2px 2px #000000;
+}
+.cShadowBoxBlack3px {
+    /* box shadow 그림자 설정 */
+    box-shadow: 3px 3px 3px 3px #000000;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : background 그라데이션 gradient 색상 정의] */
+.cBgGradientBlueTop {
+    background : linear-gradient(to bottom, #076ede, #3d98fa);
+}
+.cBgGradientBlueLeft {
+    background : linear-gradient(to left, #076ede, #3d98fa);
+}
+.cBgGradientBlueRight {
+    background : linear-gradient(to right, #076ede, #3d98fa);
+}
+.cBgGradientBlueBottom {
+    background : linear-gradient(to top, #076ede, #3d98fa);
+}
+
+.cBgGradientGrayTop {
+    background : linear-gradient(to bottom, #555d63, #b1b5b8);
+}
+.cBgGradientGrayLeft {
+    background : linear-gradient(to left, #555d63, #b1b5b8);
+}
+.cBgGradientGrayRight {
+    background : linear-gradient(to right, #555d63, #b1b5b8);
+}
+.cBgGradientGrayBottom {
+    background : linear-gradient(to top, #555d63, #b1b5b8);
+}
+
+.cBgGradientGreenTop {
+    background : linear-gradient(to bottom, #238e3c, #48d368);
+}
+.cBgGradientGreenLeft {
+    background : linear-gradient(to left, #238e3c, #48d368);
+}
+.cBgGradientGreenRight {
+    background : linear-gradient(to right, #238e3c, #48d368);
+}
+.cBgGradientGreenBottom {
+    background : linear-gradient(to top, #238e3c, #48d368);
+}
+
+.cBgGradientRedTop {
+    background : linear-gradient(to bottom, #bb2533, #f17480);
+}
+.cBgGradientRedLeft {
+    background : linear-gradient(to left, #bb2533, #f17480);
+}
+.cBgGradientRedRight {
+    background : linear-gradient(to right, #bb2533, #f17480);
+}
+.cBgGradientRedBottom {
+    background : linear-gradient(to top, #bb2533, #f17480);
+}
+
+.cBgGradientYellowTop {
+    background : linear-gradient(to bottom, #deab11, #f8d772);
+}
+.cBgGradientYellowLeft {
+    background : linear-gradient(to left, #deab11, #f8d772);
+}
+.cBgGradientYellowRight {
+    background : linear-gradient(to right, #deab11, #f8d772);
+}
+.cBgGradientYellowBottom {
+    background : linear-gradient(to top, #deab11, #f8d772);
+}
+
+.cBgGradientSkyTop {
+    background : linear-gradient(to bottom, #12889a, #4dd0e5);
+}
+.cBgGradientSkyLeft {
+    background : linear-gradient(to left, #12889a, #4dd0e5);
+}
+.cBgGradientSkyRight {
+    background : linear-gradient(to right, #12889a, #4dd0e5);
+}
+.cBgGradientSkyBottom {
+    background : linear-gradient(to top, #12889a, #4dd0e5);
+}
+
+.cBgGradientWhiteTop {
+    background : linear-gradient(to bottom, #e5e5e6, #f1f1f1);
+}
+.cBgGradientWhiteLeft {
+    background : linear-gradient(to left, #e5e5e6, #f1f1f1);
+}
+.cBgGradientWhiteRight {
+    background : linear-gradient(to right, #e5e5e6, #f1f1f1);
+}
+.cBgGradientWhiteBottom {
+    background : linear-gradient(to top, #e5e5e6, #f1f1f1);
+}
+
+.cBgGradientBlackTop {
+    background : linear-gradient(to bottom, #343a40, #5f6060);
+}
+.cBgGradientBlackLeft {
+    background : linear-gradient(to left, #343a40, #5f6060);
+}
+.cBgGradientBlackRight {
+    background : linear-gradient(to right, #343a40, #5f6060);
+}
+.cBgGradientBlackBottom {
+    background : linear-gradient(to top, #343a40, #5f6060);
+}
+
+.cBgGradientPupleTop {
+    background : linear-gradient(to bottom, #773191, #bd97c8);
+}
+.cBgGradientPupleLeft {
+    background : linear-gradient(to left, #773191, #bd97c8);
+}
+.cBgGradientPupleRight {
+    background : linear-gradient(to right, #773191, #bd97c8);
+}
+.cBgGradientPupleBottom {
+    background : linear-gradient(to top, #773191, #bd97c8);
+}
+
+.cBgGradientOrangeTop {
+    background : linear-gradient(to bottom, #f05624, #fac68d);
+}
+.cBgGradientOrangeLeft {
+    background : linear-gradient(to left, #f05624, #fac68d);
+}
+.cBgGradientOrangeRight {
+    background : linear-gradient(to right, #f05624, #fac68d);
+}
+.cBgGradientOrangeBottom {
+    background : linear-gradient(to top, #f05624, #fac68d);
+}
+
+.cBgGradientPinkTop {
+    background : linear-gradient(to bottom, #f47a7e, #f8b1b3);
+}
+.cBgGradientPinkLeft {
+    background : linear-gradient(to left, #f47a7e, #f8b1b3);
+}
+.cBgGradientPinkRight {
+    background : linear-gradient(to right, #f47a7e, #f8b1b3);
+}
+.cBgGradientPinkBottom {
+    background : linear-gradient(to top, #f47a7e, #f8b1b3);
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : border-color 테두리 색상 정의 - all] */
+.cBorderAllBlueBold_1 {
+    border: 1px solid #076ede;
+}
+.cBorderAllGrayBold_1 {
+    border: 1px solid #555d63;
+}
+.cBorderAllGreenBold_1 {
+    border: 1px solid #238e3c;
+}
+.cBorderAllRedBold_1 {
+    border: 1px solid #bb2533;
+}
+.cBorderAllYellowBold_1 {
+    border: 1px solid #deab11;
+}
+.cBorderAllSkyBold_1 {
+    border: 1px solid #12889a;
+}
+.cBorderAllWhiteBold_1 {
+    border: 1px solid #e5e5e6;
+}
+.cBorderAllBlackBold_1 {
+    border: 1px solid #000000;
+}
+
+.cBorderAllPupleBold_1 {
+    border: 1px solid #773191;
+}
+.cBorderAllOrangeBold_1 {
+    border: 1px solid #f05624;
+}
+.cBorderAllPinkBold_1 {
+    border: 1px solid #f47a7e;
+}
+
+.cBorderAllBlueMiddle_1 {
+    border: 1px solid #007bff;
+}
+.cBorderAllGrayMiddle_1 {
+    border: 1px solid #6c757d;
+}
+.cBorderAllGreenMiddle_1 {
+    border: 1px solid #28a745;
+}
+.cBorderAllRedMiddle_1 {
+    border: 1px solid #dc3545;
+}
+.cBorderAllYellowMiddle_1 {
+    border: 1px solid #ffc107;
+}
+.cBorderAllSkyMiddle_1 {
+    border: 1px solid #17a2b8;
+}
+.cBorderAllWhiteMiddle_1 {
+    border: 1px solid #f8f9fa;
+}
+.cBorderAllBlackMiddle_1 {
+    border: 1px solid #343a40;
+}
+
+.cBorderAllPupleMiddle_1 {
+    border: 1px solid #9f4098;
+}
+.cBorderAllOrangeMiddle_1 {
+    border: 1px solid #f78d1f;
+}
+.cBorderAllPinkMiddle_1 {
+    border: 1px solid #f68d91;
+}
+
+.cBorderAllBlueLight_1 {
+    border: 1px solid #3d98fa;
+}
+.cBorderAllGrayLight_1 {
+    border: 1px solid #b1b5b8;
+}
+.cBorderAllGreenLight_1 {
+    border: 1px solid #48d368;
+}
+.cBorderAllRedLight_1 {
+    border: 1px solid #f17480;
+}
+.cBorderAllYellowLight_1 {
+    border: 1px solid #f8d772;
+}
+.cBorderAllSkyLight_1 {
+    border: 1px solid #4dd0e5;
+}
+.cBorderAllWhiteLight_1 {
+    border: 1px solid #ffffff;
+}
+.cBorderAllBlackLight_1 {
+    border: 1px solid #5f6060;
+}
+
+.cBorderAllPupleLight_1 {
+    border: 1px solid #bd97c8;
+}
+.cBorderAllOrangeLight_1 {
+    border: 1px solid #fac68d;
+}
+.cBorderAllPinkLight_1 {
+    border: 1px solid #f8b1b3;
+}
+
+.cBorderAllBlueBold_2 {
+    border: 2px solid #076ede;
+}
+.cBorderAllGrayBold_2 {
+    border: 2px solid #555d63;
+}
+.cBorderAllGreenBold_2 {
+    border: 2px solid #238e3c;
+}
+.cBorderAllRedBold_2 {
+    border: 2px solid #bb2533;
+}
+.cBorderAllYellowBold_2 {
+    border: 2px solid #deab11;
+}
+.cBorderAllSkyBold_2 {
+    border: 2px solid #12889a;
+}
+.cBorderAllWhiteBold_2 {
+    border: 2px solid #e5e5e6;
+}
+.cBorderAllBlackBold_2 {
+    border: 2px solid #000000;
+}
+
+.cBorderAllPupleBold_2 {
+    border: 2px solid #773191;
+}
+.cBorderAllOrangeBold_2 {
+    border: 2px solid #f05624;
+}
+.cBorderAllPinkBold_2 {
+    border: 2px solid #f47a7e;
+}
+
+.cBorderAllBlueMiddle_2 {
+    border: 2px solid #007bff;
+}
+.cBorderAllGrayMiddle_2 {
+    border: 2px solid #6c757d;
+}
+.cBorderAllGreenMiddle_2 {
+    border: 2px solid #28a745;
+}
+.cBorderAllRedMiddle_2 {
+    border: 2px solid #dc3545;
+}
+.cBorderAllYellowMiddle_2 {
+    border: 2px solid #ffc107;
+}
+.cBorderAllSkyMiddle_2 {
+    border: 2px solid #17a2b8;
+}
+.cBorderAllWhiteMiddle_2 {
+    border: 2px solid #f8f9fa;
+}
+.cBorderAllBlackMiddle_2 {
+    border: 2px solid #343a40;
+}
+
+.cBorderAllPupleMiddle_2 {
+    border: 2px solid #9f4098;
+}
+.cBorderAllOrangeMiddle_2 {
+    border: 2px solid #f78d1f;
+}
+.cBorderAllPinkMiddle_2 {
+    border: 2px solid #f68d91;
+}
+
+.cBorderAllBlueLight_2 {
+    border: 2px solid #3d98fa;
+}
+.cBorderAllGrayLight_2 {
+    border: 2px solid #b1b5b8;
+}
+.cBorderAllGreenLight_2 {
+    border: 2px solid #48d368;
+}
+.cBorderAllRedLight_2 {
+    border: 2px solid #f17480;
+}
+.cBorderAllYellowLight_2 {
+    border: 2px solid #f8d772;
+}
+.cBorderAllSkyLight_2 {
+    border: 2px solid #4dd0e5;
+}
+.cBorderAllWhiteLight_2 {
+    border: 2px solid #ffffff;
+}
+.cBorderAllBlackLight_2 {
+    border: 2px solid #5f6060;
+}
+
+.cBorderAllPupleLight_2 {
+    border: 2px solid #bd97c8;
+}
+.cBorderAllOrangeLight_2 {
+    border: 2px solid #fac68d;
+}
+.cBorderAllPinkLight_2 {
+    border: 2px solid #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : border-color 테두리 색상 정의 - top] */
+.cBorderTopBlueBold_1 {
+    border-top: 1px solid #076ede;
+}
+.cBorderTopGrayBold_1 {
+    border-top: 1px solid #555d63;
+}
+.cBorderTopGreenBold_1 {
+    border-top: 1px solid #238e3c;
+}
+.cBorderTopRedBold_1 {
+    border-top: 1px solid #bb2533;
+}
+.cBorderTopYellowBold_1 {
+    border-top: 1px solid #deab11;
+}
+.cBorderTopSkyBold_1 {
+    border-top: 1px solid #12889a;
+}
+.cBorderTopWhiteBold_1 {
+    border-top: 1px solid #e5e5e6;
+}
+.cBorderTopBlackBold_1 {
+    border-top: 1px solid #000000;
+}
+
+.cBorderTopPupleBold_1 {
+    border-top: 1px solid #773191;
+}
+.cBorderTopOrangeBold_1 {
+    border-top: 1px solid #f05624;
+}
+.cBorderTopPinkBold_1 {
+    border-top: 1px solid #f47a7e;
+}
+
+.cBorderTopBlueMiddle_1 {
+    border-top: 1px solid #007bff;
+}
+.cBorderTopGrayMiddle_1 {
+    border-top: 1px solid #6c757d;
+}
+.cBorderTopGreenMiddle_1 {
+    border-top: 1px solid #28a745;
+}
+.cBorderTopRedMiddle_1 {
+    border-top: 1px solid #dc3545;
+}
+.cBorderTopYellowMiddle_1 {
+    border-top: 1px solid #ffc107;
+}
+.cBorderTopSkyMiddle_1 {
+    border-top: 1px solid #17a2b8;
+}
+.cBorderTopWhiteMiddle_1 {
+    border-top: 1px solid #f8f9fa;
+}
+.cBorderTopBlackMiddle_1 {
+    border-top: 1px solid #343a40;
+}
+
+.cBorderTopPupleMiddle_1 {
+    border-top: 1px solid #9f4098;
+}
+.cBorderTopOrangeMiddle_1 {
+    border-top: 1px solid #f78d1f;
+}
+.cBorderTopPinkMiddle_1 {
+    border-top: 1px solid #f68d91;
+}
+
+.cBorderTopBlueLight_1 {
+    border-top: 1px solid #3d98fa;
+}
+.cBorderTopGrayLight_1 {
+    border-top: 1px solid #b1b5b8;
+}
+.cBorderTopGreenLight_1 {
+    border-top: 1px solid #48d368;
+}
+.cBorderTopRedLight_1 {
+    border-top: 1px solid #f17480;
+}
+.cBorderTopYellowLight_1 {
+    border-top: 1px solid #f8d772;
+}
+.cBorderTopSkyLight_1 {
+    border-top: 1px solid #4dd0e5;
+}
+.cBorderTopWhiteLight_1 {
+    border-top: 1px solid #ffffff;
+}
+.cBorderTopBlackLight_1 {
+    border-top: 1px solid #5f6060;
+}
+
+.cBorderTopPupleLight_1 {
+    border-top: 1px solid #bd97c8;
+}
+.cBorderTopOrangeLight_1 {
+    border-top: 1px solid #fac68d;
+}
+.cBorderTopPinkLight_1 {
+    border-top: 1px solid #f8b1b3;
+}
+
+.cBorderTopBlueBold_2 {
+    border-top: 2px solid #076ede;
+}
+.cBorderTopGrayBold_2 {
+    border-top: 2px solid #555d63;
+}
+.cBorderTopGreenBold_2 {
+    border-top: 2px solid #238e3c;
+}
+.cBorderTopRedBold_2 {
+    border-top: 2px solid #bb2533;
+}
+.cBorderTopYellowBold_2 {
+    border-top: 2px solid #deab11;
+}
+.cBorderTopSkyBold_2 {
+    border-top: 2px solid #12889a;
+}
+.cBorderTopWhiteBold_2 {
+    border-top: 2px solid #e5e5e6;
+}
+.cBorderTopBlackBold_2 {
+    border-top: 2px solid #000000;
+}
+
+.cBorderTopPupleBold_2 {
+    border-top: 2px solid #773191;
+}
+.cBorderTopOrangeBold_2 {
+    border-top: 2px solid #f05624;
+}
+.cBorderTopPinkBold_2 {
+    border-top: 2px solid #f47a7e;
+}
+
+.cBorderTopBlueMiddle_2 {
+    border-top: 2px solid #007bff;
+}
+.cBorderTopGrayMiddle_2 {
+    border-top: 2px solid #6c757d;
+}
+.cBorderTopGreenMiddle_2 {
+    border-top: 2px solid #28a745;
+}
+.cBorderTopRedMiddle_2 {
+    border-top: 2px solid #dc3545;
+}
+.cBorderTopYellowMiddle_2 {
+    border-top: 2px solid #ffc107;
+}
+.cBorderTopSkyMiddle_2 {
+    border-top: 2px solid #17a2b8;
+}
+.cBorderTopWhiteMiddle_2 {
+    border-top: 2px solid #f8f9fa;
+}
+.cBorderTopBlackMiddle_2 {
+    border-top: 2px solid #343a40;
+}
+
+.cBorderTopPupleMiddle_2 {
+    border-top: 2px solid #9f4098;
+}
+.cBorderTopOrangeMiddle_2 {
+    border-top: 2px solid #f78d1f;
+}
+.cBorderTopPinkMiddle_2 {
+    border-top: 2px solid #f68d91;
+}
+
+.cBorderTopBlueLight_2 {
+    border-top: 2px solid #3d98fa;
+}
+.cBorderTopGrayLight_2 {
+    border-top: 2px solid #b1b5b8;
+}
+.cBorderTopGreenLight_2 {
+    border-top: 2px solid #48d368;
+}
+.cBorderTopRedLight_2 {
+    border-top: 2px solid #f17480;
+}
+.cBorderTopYellowLight_2 {
+    border-top: 2px solid #f8d772;
+}
+.cBorderTopSkyLight_2 {
+    border-top: 2px solid #4dd0e5;
+}
+.cBorderTopWhiteLight_2 {
+    border-top: 2px solid #ffffff;
+}
+.cBorderTopBlackLight_2 {
+    border-top: 2px solid #5f6060;
+}
+
+.cBorderTopPupleLight_2 {
+    border-top: 2px solid #bd97c8;
+}
+.cBorderTopOrangeLight_2 {
+    border-top: 2px solid #fac68d;
+}
+.cBorderTopPinkLight_2 {
+    border-top: 2px solid #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : border-color 테두리 색상 정의 - bottom] */
+.cBorderBottomBlueBold_1 {
+    border-bottom: 1px solid #076ede;
+}
+.cBorderBottomGrayBold_1 {
+    border-bottom: 1px solid #555d63;
+}
+.cBorderBottomGreenBold_1 {
+    border-bottom: 1px solid #238e3c;
+}
+.cBorderBottomRedBold_1 {
+    border-bottom: 1px solid #bb2533;
+}
+.cBorderBottomYellowBold_1 {
+    border-bottom: 1px solid #deab11;
+}
+.cBorderBottomSkyBold_1 {
+    border-bottom: 1px solid #12889a;
+}
+.cBorderBottomWhiteBold_1 {
+    border-bottom: 1px solid #e5e5e6;
+}
+.cBorderBottomBlackBold_1 {
+    border-bottom: 1px solid #000000;
+}
+
+.cBorderBottomPupleBold_1 {
+    border-bottom: 1px solid #773191;
+}
+.cBorderBottomOrangeBold_1 {
+    border-bottom: 1px solid #f05624;
+}
+.cBorderBottomPinkBold_1 {
+    border-bottom: 1px solid #f47a7e;
+}
+
+.cBorderBottomBlueMiddle_1 {
+    border-bottom: 1px solid #007bff;
+}
+.cBorderBottomGrayMiddle_1 {
+    border-bottom: 1px solid #6c757d;
+}
+.cBorderBottomGreenMiddle_1 {
+    border-bottom: 1px solid #28a745;
+}
+.cBorderBottomRedMiddle_1 {
+    border-bottom: 1px solid #dc3545;
+}
+.cBorderBottomYellowMiddle_1 {
+    border-bottom: 1px solid #ffc107;
+}
+.cBorderBottomSkyMiddle_1 {
+    border-bottom: 1px solid #17a2b8;
+}
+.cBorderBottomWhiteMiddle_1 {
+    border-bottom: 1px solid #f8f9fa;
+}
+.cBorderBottomBlackMiddle_1 {
+    border-bottom: 1px solid #343a40;
+}
+
+.cBorderBottomPupleMiddle_1 {
+    border-bottom: 1px solid #9f4098;
+}
+.cBorderBottomOrangeMiddle_1 {
+    border-bottom: 1px solid #f78d1f;
+}
+.cBorderBottomPinkMiddle_1 {
+    border-bottom: 1px solid #f68d91;
+}
+
+.cBorderBottomBlueLight_1 {
+    border-bottom: 1px solid #3d98fa;
+}
+.cBorderBottomGrayLight_1 {
+    border-bottom: 1px solid #b1b5b8;
+}
+.cBorderBottomGreenLight_1 {
+    border-bottom: 1px solid #48d368;
+}
+.cBorderBottomRedLight_1 {
+    border-bottom: 1px solid #f17480;
+}
+.cBorderBottomYellowLight_1 {
+    border-bottom: 1px solid #f8d772;
+}
+.cBorderBottomSkyLight_1 {
+    border-bottom: 1px solid #4dd0e5;
+}
+.cBorderBottomWhiteLight_1 {
+    border-bottom: 1px solid #ffffff;
+}
+.cBorderBottomBlackLight_1 {
+    border-bottom: 1px solid #5f6060;
+}
+
+.cBorderBottomPupleLight_1 {
+    border-bottom: 1px solid #bd97c8;
+}
+.cBorderBottomOrangeLight_1 {
+    border-bottom: 1px solid #fac68d;
+}
+.cBorderBottomPinkLight_1 {
+    border-bottom: 1px solid #f8b1b3;
+}
+
+.cBorderBottomBlueBold_2 {
+    border-bottom: 2px solid #076ede;
+}
+.cBorderBottomGrayBold_2 {
+    border-bottom: 2px solid #555d63;
+}
+.cBorderBottomGreenBold_2 {
+    border-bottom: 2px solid #238e3c;
+}
+.cBorderBottomRedBold_2 {
+    border-bottom: 2px solid #bb2533;
+}
+.cBorderBottomYellowBold_2 {
+    border-bottom: 2px solid #deab11;
+}
+.cBorderBottomSkyBold_2 {
+    border-bottom: 2px solid #12889a;
+}
+.cBorderBottomWhiteBold_2 {
+    border-bottom: 2px solid #e5e5e6;
+}
+.cBorderBottomBlackBold_2 {
+    border-bottom: 2px solid #000000;
+}
+
+.cBorderBottomPupleBold_2 {
+    border-bottom: 2px solid #773191;
+}
+.cBorderBottomOrangeBold_2 {
+    border-bottom: 2px solid #f05624;
+}
+.cBorderBottomPinkBold_2 {
+    border-bottom: 2px solid #f47a7e;
+}
+
+.cBorderBottomBlueMiddle_2 {
+    border-bottom: 2px solid #007bff;
+}
+.cBorderBottomGrayMiddle_2 {
+    border-bottom: 2px solid #6c757d;
+}
+.cBorderBottomGreenMiddle_2 {
+    border-bottom: 2px solid #28a745;
+}
+.cBorderBottomRedMiddle_2 {
+    border-bottom: 2px solid #dc3545;
+}
+.cBorderBottomYellowMiddle_2 {
+    border-bottom: 2px solid #ffc107;
+}
+.cBorderBottomSkyMiddle_2 {
+    border-bottom: 2px solid #17a2b8;
+}
+.cBorderBottomWhiteMiddle_2 {
+    border-bottom: 2px solid #f8f9fa;
+}
+.cBorderBottomBlackMiddle_2 {
+    border-bottom: 2px solid #343a40;
+}
+
+.cBorderBottomPupleMiddle_2 {
+    border-bottom: 2px solid #9f4098;
+}
+.cBorderBottomOrangeMiddle_2 {
+    border-bottom: 2px solid #f78d1f;
+}
+.cBorderBottomPinkMiddle_2 {
+    border-bottom: 2px solid #f68d91;
+}
+
+.cBorderBottomBlueLight_2 {
+    border-bottom: 2px solid #3d98fa;
+}
+.cBorderBottomGrayLight_2 {
+    border-bottom: 2px solid #b1b5b8;
+}
+.cBorderBottomGreenLight_2 {
+    border-bottom: 2px solid #48d368;
+}
+.cBorderBottomRedLight_2 {
+    border-bottom: 2px solid #f17480;
+}
+.cBorderBottomYellowLight_2 {
+    border-bottom: 2px solid #f8d772;
+}
+.cBorderBottomSkyLight_2 {
+    border-bottom: 2px solid #4dd0e5;
+}
+.cBorderBottomWhiteLight_2 {
+    border-bottom: 2px solid #ffffff;
+}
+.cBorderBottomBlackLight_2 {
+    border-bottom: 2px solid #5f6060;
+}
+
+.cBorderBottomPupleLight_2 {
+    border-bottom: 2px solid #bd97c8;
+}
+.cBorderBottomOrangeLight_2 {
+    border-bottom: 2px solid #fac68d;
+}
+.cBorderBottomPinkLight_2 {
+    border-bottom: 2px solid #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : border-color 테두리 색상 정의 - left] */
+.cBorderLeftBlueBold_1 {
+    border-left: 1px solid #076ede;
+}
+.cBorderLeftGrayBold_1 {
+    border-left: 1px solid #555d63;
+}
+.cBorderLeftGreenBold_1 {
+    border-left: 1px solid #238e3c;
+}
+.cBorderLeftRedBold_1 {
+    border-left: 1px solid #bb2533;
+}
+.cBorderLeftYellowBold_1 {
+    border-left: 1px solid #deab11;
+}
+.cBorderLeftSkyBold_1 {
+    border-left: 1px solid #12889a;
+}
+.cBorderLeftWhiteBold_1 {
+    border-left: 1px solid #e5e5e6;
+}
+.cBorderLeftBlackBold_1 {
+    border-left: 1px solid #000000;
+}
+
+.cBorderLeftPupleBold_1 {
+    border-left: 1px solid #773191;
+}
+.cBorderLeftOrangeBold_1 {
+    border-left: 1px solid #f05624;
+}
+.cBorderLeftPinkBold_1 {
+    border-left: 1px solid #f47a7e;
+}
+
+.cBorderLeftBlueMiddle_1 {
+    border-left: 1px solid #007bff;
+}
+.cBorderLeftGrayMiddle_1 {
+    border-left: 1px solid #6c757d;
+}
+.cBorderLeftGreenMiddle_1 {
+    border-left: 1px solid #28a745;
+}
+.cBorderLeftRedMiddle_1 {
+    border-left: 1px solid #dc3545;
+}
+.cBorderLeftYellowMiddle_1 {
+    border-left: 1px solid #ffc107;
+}
+.cBorderLeftSkyMiddle_1 {
+    border-left: 1px solid #17a2b8;
+}
+.cBorderLeftWhiteMiddle_1 {
+    border-left: 1px solid #f8f9fa;
+}
+.cBorderLeftBlackMiddle_1 {
+    border-left: 1px solid #343a40;
+}
+
+.cBorderLeftPupleMiddle_1 {
+    border-left: 1px solid #9f4098;
+}
+.cBorderLeftOrangeMiddle_1 {
+    border-left: 1px solid #f78d1f;
+}
+.cBorderLeftPinkMiddle_1 {
+    border-left: 1px solid #f68d91;
+}
+
+.cBorderLeftBlueLight_1 {
+    border-left: 1px solid #3d98fa;
+}
+.cBorderLeftGrayLight_1 {
+    border-left: 1px solid #b1b5b8;
+}
+.cBorderLeftGreenLight_1 {
+    border-left: 1px solid #48d368;
+}
+.cBorderLeftRedLight_1 {
+    border-left: 1px solid #f17480;
+}
+.cBorderLeftYellowLight_1 {
+    border-left: 1px solid #f8d772;
+}
+.cBorderLeftSkyLight_1 {
+    border-left: 1px solid #4dd0e5;
+}
+.cBorderLeftWhiteLight_1 {
+    border-left: 1px solid #ffffff;
+}
+.cBorderLeftBlackLight_1 {
+    border-left: 1px solid #5f6060;
+}
+
+.cBorderLeftPupleLight_1 {
+    border-left: 1px solid #bd97c8;
+}
+.cBorderLeftOrangeLight_1 {
+    border-left: 1px solid #fac68d;
+}
+.cBorderLeftPinkLight_1 {
+    border-left: 1px solid #f8b1b3;
+}
+
+.cBorderLeftBlueBold_2 {
+    border-left: 2px solid #076ede;
+}
+.cBorderLeftGrayBold_2 {
+    border-left: 2px solid #555d63;
+}
+.cBorderLeftGreenBold_2 {
+    border-left: 2px solid #238e3c;
+}
+.cBorderLeftRedBold_2 {
+    border-left: 2px solid #bb2533;
+}
+.cBorderLeftYellowBold_2 {
+    border-left: 2px solid #deab11;
+}
+.cBorderLeftSkyBold_2 {
+    border-left: 2px solid #12889a;
+}
+.cBorderLeftWhiteBold_2 {
+    border-left: 2px solid #e5e5e6;
+}
+.cBorderLeftBlackBold_2 {
+    border-left: 2px solid #000000;
+}
+
+.cBorderLeftPupleBold_2 {
+    border-left: 2px solid #773191;
+}
+.cBorderLeftOrangeBold_2 {
+    border-left: 2px solid #f05624;
+}
+.cBorderLeftPinkBold_2 {
+    border-left: 2px solid #f47a7e;
+}
+
+.cBorderLeftBlueMiddle_2 {
+    border-left: 2px solid #007bff;
+}
+.cBorderLeftGrayMiddle_2 {
+    border-left: 2px solid #6c757d;
+}
+.cBorderLeftGreenMiddle_2 {
+    border-left: 2px solid #28a745;
+}
+.cBorderLeftRedMiddle_2 {
+    border-left: 2px solid #dc3545;
+}
+.cBorderLeftYellowMiddle_2 {
+    border-left: 2px solid #ffc107;
+}
+.cBorderLeftSkyMiddle_2 {
+    border-left: 2px solid #17a2b8;
+}
+.cBorderLeftWhiteMiddle_2 {
+    border-left: 2px solid #f8f9fa;
+}
+.cBorderLeftBlackMiddle_2 {
+    border-left: 2px solid #343a40;
+}
+
+.cBorderLeftPupleMiddle_2 {
+    border-left: 2px solid #9f4098;
+}
+.cBorderLeftOrangeMiddle_2 {
+    border-left: 2px solid #f78d1f;
+}
+.cBorderLeftPinkMiddle_2 {
+    border-left: 2px solid #f68d91;
+}
+
+.cBorderLeftBlueLight_2 {
+    border-left: 2px solid #3d98fa;
+}
+.cBorderLeftGrayLight_2 {
+    border-left: 2px solid #b1b5b8;
+}
+.cBorderLeftGreenLight_2 {
+    border-left: 2px solid #48d368;
+}
+.cBorderLeftRedLight_2 {
+    border-left: 2px solid #f17480;
+}
+.cBorderLeftYellowLight_2 {
+    border-left: 2px solid #f8d772;
+}
+.cBorderLeftSkyLight_2 {
+    border-left: 2px solid #4dd0e5;
+}
+.cBorderLeftWhiteLight_2 {
+    border-left: 2px solid #ffffff;
+}
+.cBorderLeftBlackLight_2 {
+    border-left: 2px solid #5f6060;
+}
+
+.cBorderLeftPupleLight_2 {
+    border-left: 2px solid #bd97c8;
+}
+.cBorderLeftOrangeLight_2 {
+    border-left: 2px solid #fac68d;
+}
+.cBorderLeftPinkLight_2 {
+    border-left: 2px solid #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : border-color 테두리 색상 정의 - right] */
+.cBorderRightBlueBold_1 {
+    border-right: 1px solid #076ede;
+}
+.cBorderRightGrayBold_1 {
+    border-right: 1px solid #555d63;
+}
+.cBorderRightGreenBold_1 {
+    border-right: 1px solid #238e3c;
+}
+.cBorderRightRedBold_1 {
+    border-right: 1px solid #bb2533;
+}
+.cBorderRightYellowBold_1 {
+    border-right: 1px solid #deab11;
+}
+.cBorderRightSkyBold_1 {
+    border-right: 1px solid #12889a;
+}
+.cBorderRightWhiteBold_1 {
+    border-right: 1px solid #e5e5e6;
+}
+.cBorderRightBlackBold_1 {
+    border-right: 1px solid #000000;
+}
+
+.cBorderRightPupleBold_1 {
+    border-right: 1px solid #773191;
+}
+.cBorderRightOrangeBold_1 {
+    border-right: 1px solid #f05624;
+}
+.cBorderRightPinkBold_1 {
+    border-right: 1px solid #f47a7e;
+}
+
+.cBorderRightBlueMiddle_1 {
+    border-right: 1px solid #007bff;
+}
+.cBorderRightGrayMiddle_1 {
+    border-right: 1px solid #6c757d;
+}
+.cBorderRightGreenMiddle_1 {
+    border-right: 1px solid #28a745;
+}
+.cBorderRightRedMiddle_1 {
+    border-right: 1px solid #dc3545;
+}
+.cBorderRightYellowMiddle_1 {
+    border-right: 1px solid #ffc107;
+}
+.cBorderRightSkyMiddle_1 {
+    border-right: 1px solid #17a2b8;
+}
+.cBorderRightWhiteMiddle_1 {
+    border-right: 1px solid #f8f9fa;
+}
+.cBorderRightBlackMiddle_1 {
+    border-right: 1px solid #343a40;
+}
+
+.cBorderRightPupleMiddle_1 {
+    border-right: 1px solid #9f4098;
+}
+.cBorderRightOrangeMiddle_1 {
+    border-right: 1px solid #f78d1f;
+}
+.cBorderRightPinkMiddle_1 {
+    border-right: 1px solid #f68d91;
+}
+
+.cBorderRightBlueLight_1 {
+    border-right: 1px solid #3d98fa;
+}
+.cBorderRightGrayLight_1 {
+    border-right: 1px solid #b1b5b8;
+}
+.cBorderRightGreenLight_1 {
+    border-right: 1px solid #48d368;
+}
+.cBorderRightRedLight_1 {
+    border-right: 1px solid #f17480;
+}
+.cBorderRightYellowLight_1 {
+    border-right: 1px solid #f8d772;
+}
+.cBorderRightSkyLight_1 {
+    border-right: 1px solid #4dd0e5;
+}
+.cBorderRightWhiteLight_1 {
+    border-right: 1px solid #ffffff;
+}
+.cBorderRightBlackLight_1 {
+    border-right: 1px solid #5f6060;
+}
+
+.cBorderRightPupleLight_1 {
+    border-right: 1px solid #bd97c8;
+}
+.cBorderRightOrangeLight_1 {
+    border-right: 1px solid #fac68d;
+}
+.cBorderRightPinkLight_1 {
+    border-right: 1px solid #f8b1b3;
+}
+
+.cBorderRightBlueBold_2 {
+    border-right: 2px solid #076ede;
+}
+.cBorderRightGrayBold_2 {
+    border-right: 2px solid #555d63;
+}
+.cBorderRightGreenBold_2 {
+    border-right: 2px solid #238e3c;
+}
+.cBorderRightRedBold_2 {
+    border-right: 2px solid #bb2533;
+}
+.cBorderRightYellowBold_2 {
+    border-right: 2px solid #deab11;
+}
+.cBorderRightSkyBold_2 {
+    border-right: 2px solid #12889a;
+}
+.cBorderRightWhiteBold_2 {
+    border-right: 2px solid #e5e5e6;
+}
+.cBorderRightBlackBold_2 {
+    border-right: 2px solid #000000;
+}
+
+.cBorderRightPupleBold_2 {
+    border-right: 2px solid #773191;
+}
+.cBorderRightOrangeBold_2 {
+    border-right: 2px solid #f05624;
+}
+.cBorderRightPinkBold_2 {
+    border-right: 2px solid #f47a7e;
+}
+
+.cBorderRightBlueMiddle_2 {
+    border-right: 2px solid #007bff;
+}
+.cBorderRightGrayMiddle_2 {
+    border-right: 2px solid #6c757d;
+}
+.cBorderRightGreenMiddle_2 {
+    border-right: 2px solid #28a745;
+}
+.cBorderRightRedMiddle_2 {
+    border-right: 2px solid #dc3545;
+}
+.cBorderRightYellowMiddle_2 {
+    border-right: 2px solid #ffc107;
+}
+.cBorderRightSkyMiddle_2 {
+    border-right: 2px solid #17a2b8;
+}
+.cBorderRightWhiteMiddle_2 {
+    border-right: 2px solid #f8f9fa;
+}
+.cBorderRightBlackMiddle_2 {
+    border-right: 2px solid #343a40;
+}
+
+.cBorderRightPupleMiddle_2 {
+    border-right: 2px solid #9f4098;
+}
+.cBorderRightOrangeMiddle_2 {
+    border-right: 2px solid #f78d1f;
+}
+.cBorderRightPinkMiddle_2 {
+    border-right: 2px solid #f68d91;
+}
+
+.cBorderRightBlueLight_2 {
+    border-right: 2px solid #3d98fa;
+}
+.cBorderRightGrayLight_2 {
+    border-right: 2px solid #b1b5b8;
+}
+.cBorderRightGreenLight_2 {
+    border-right: 2px solid #48d368;
+}
+.cBorderRightRedLight_2 {
+    border-right: 2px solid #f17480;
+}
+.cBorderRightYellowLight_2 {
+    border-right: 2px solid #f8d772;
+}
+.cBorderRightSkyLight_2 {
+    border-right: 2px solid #4dd0e5;
+}
+.cBorderRightWhiteLight_2 {
+    border-right: 2px solid #ffffff;
+}
+.cBorderRightBlackLight_2 {
+    border-right: 2px solid #5f6060;
+}
+
+.cBorderRightPupleLight_2 {
+    border-right: 2px solid #bd97c8;
+}
+.cBorderRightOrangeLight_2 {
+    border-right: 2px solid #fac68d;
+}
+.cBorderRightPinkLight_2 {
+    border-right: 2px solid #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : div 오버플로우 처리 overflow 넘침 스크롤 scroll] */
+.cPtagOverFlow {
+    /* block 값이 있어야 정상 오버플로우 처리됨 */
+    display: block;
+    overflow: auto;
+}
+.cPtagOverFlow::-webkit-scrollbar {
+    width: 0px;
+    background-color: #c1c1c1;
+}
+.cPtagOverFlow::-webkit-scrollbar-thumb {
+    background-color: #444444;
+}
+
+
+
+
+
+
+
+
+
+
+/* [공통 : 텍스트 text 색상 color 변경 실시] */
+.cFontColorBlueBold {
+    color: #076ede;
+}
+.cFontColorGrayBold {
+    color: #555d63;
+}
+.cFontColorGreenBold {
+    color: #238e3c;
+}
+.cFontColorRedBold {
+    color: #bb2533;
+}
+.cFontColorYellowBold {
+    color: #deab11;
+}
+.cFontColorSkyBold {
+    color: #12889a;
+}
+.cFontColorWhiteBold {
+    color: #e5e5e6;
+}
+.cFontColorBlackBold {
+    color: #000000;
+}
+
+.cFontColorPupleBold {
+    color: #773191;
+}
+.cFontColorOrangeBold {
+    color: #f05624;
+}
+.cFontColorPinkBold {
+    color: #f47a7e;
+}
+
+.cFontColorBlueMiddle {
+    color: #007bff;
+}
+.cFontColorGrayMiddle {
+    color: #6c757d;
+}
+.cFontColorGreenMiddle {
+    color: #28a745;
+}
+.cFontColorRedMiddle {
+    color: #dc3545;
+}
+.cFontColorYellowMiddle {
+    color: #ffc107;
+}
+.cFontColorSkyMiddle {
+    color: #17a2b8;
+}
+.cFontColorWhiteMiddle {
+    color: #f8f9fa;
+}
+.cFontColorBlackMiddle {
+    color: #343a40;
+}
+
+.cFontColorPupleMiddle {
+    color: #9f4098;
+}
+.cFontColorOrangeMiddle {
+    color: #f78d1f;
+}
+.cFontColorPinkMiddle {
+    color: #f68d91;
+}
+
+.cFontColorBlueLight {
+    color: #3d98fa;
+}
+.cFontColorGrayLight {
+    color: #b1b5b8;
+}
+.cFontColorGreenLight {
+    color: #48d368;
+}
+.cFontColorRedLight {
+    color: #f17480;
+}
+.cFontColorYellowLight {
+    color: #f8d772;
+}
+.cFontColorSkyLight {
+    color: #4dd0e5;
+}
+.cFontColorWhiteLight {
+    color: #ffffff;
+}
+.cFontColorBlackLight {
+    color: #5f6060;
+}
+
+.cFontColorPupleLight {
+    color: #bd97c8;
+}
+.cFontColorOrangeLight {
+    color: #fac68d;
+}
+.cFontColorPinkLight {
+    color: #f8b1b3;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : 텍스트 굵기 변경 실시] */
+.cFontBoldWeight {
+    font-weight: bold;
+}
+.cFontNormalWeight {
+    font-weight: normal;
+}
+.cFontLightWeight {
+    font-weight: lighter;
+}
+
+
+
+
+
+
+
+
+
+/* [공통 : 텍스트 정렬 방법] */
+.cTextCenterWidthAlign {
+    /* 텍스트 중앙 정렬 */
+    text-align: center;
+}
+.cTextLeftWidthAlign {
+    /* 텍스트 왼쪽 정렬 */
+    text-align: left;
+}
+.cTextRightWidthAlign {
+    /* 텍스트 오른쪽 정렬 */
+    text-align: right;
+}
+.cTextJustifyWidthAlign {
+    /* 텍스트 문단 양쪽 정렬 */
+    text-align: justify;
+}
+
+
+
+/* [공통 : border-radius 테두리 둥글기 all 적용] */
+.cBorderRadiusAll_5 {
+    border-radius: 5px;
+}
+/* [공통 : border-radius 테두리 둥글기 Top 적용] */
+.cBorderRadiusTop_5 {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+/* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+.cBorderRadiusBottom_5 {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.cBorderRadiusAll_10 {
+    border-radius: 10px;
+}
+/* [공통 : border-radius 테두리 둥글기 Top 적용] */
+.cBorderRadiusTop_10 {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+/* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+.cBorderRadiusBottom_10 {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.cBorderRadiusAll_15 {
+    border-radius: 15px;
+}
+/* [공통 : border-radius 테두리 둥글기 Top 적용] */
+.cBorderRadiusTop_15 {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+/* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+.cBorderRadiusBottom_15 {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.cBorderRadiusAll_20 {
+    border-radius: 20px;
+}
+/* [공통 : border-radius 테두리 둥글기 Top 적용] */
+.cBorderRadiusTop_20 {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+/* [공통 : border-radius 테두리 둥글기 bottom 적용] */
+.cBorderRadiusBottom_20 {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+
+
+/* [공통 : font-size 반응형 처리] */
+.cPtagFontSizeBigTitle {
+    font-size: 200%;
+}
+.cPtagFontSizeTitle {
+    font-size: 160%;
+}
+.cPtagFontSizeContent {
+    font-size: 140%;
+}
+.cPtagFontSizeTrail {
+    font-size: 110%;
+}
+.cPtagFontSizeMin {
+    font-size: 100%;
+}
+
+
+
+
