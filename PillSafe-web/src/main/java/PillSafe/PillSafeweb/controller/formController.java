@@ -8,6 +8,7 @@ public class formController {
     @GetMapping("/form")
     public String form(){ return "form"; }
 
-
+    @GetMapping("/formSuccess")
+    public String formSuccess(){ return "formSuccess"; }
 
 }
