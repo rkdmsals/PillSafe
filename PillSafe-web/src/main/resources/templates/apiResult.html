@@ -45,29 +45,54 @@
 <!--</body>-->
 <!--</html>-->
 
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>JSON Parsing Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+
+    <link rel="stylesheet" href="../static/result_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="shortcut icon" href="../static/favicon.ico">
+
 </head>
 <body>
-<!--<div th:each="item, itemInfo : ${items}">-->
-<div th:each="item, itemInfo : ${items}" th:if="${itemInfo.index == 3}">
-    <h3 th:text="'항목[' + (${itemInfo.index} + 1) + ']'" ></h3>
-    <img th:src="${item.itemImage}" alt="" >
-    <p>업체명: <span th:text="${item.entpName}"></span></p>
-    <p>제품명: <span th:text="${item.itemName}"></span></p>
-    <p>효능: <span th:text="${item.efcyQesitm}"></span></p>
-    <p>사용법: <span th:text="${item.useMethodQesitm}"></span></p>
-    <p>주의사항 경고: <span th:text="${item.atpnWarnQesitm}"></span></p>
-    <p>주의사항: <span th:text="${item.atpnQesitm}"></span></p>
-    <p>상호작용: <span th:text="${item.intrcQesitm}"></span></p>
-    <p>부작용: <span th:text="${item.seQesitm}"></span></p>
-    <p>보관법: <span th:text="${item.depositMethodQesitm}"></span></p>
-</div>
+    <header>
+        <div class="logo">
+            <img src="../static/logo.png" alt="필세이프 로고">
+        </div>
+    </header>
+    <!--<div th:each="item, itemInfo : ${items}">-->
+    <div class="result-wrapper" th:each="item, itemInfo : ${items}" th:if="${itemInfo.index == 3}">
+        <!--<h3 th:text="'항목[' + (${itemInfo.index} + 1) + ']'" ></h3>-->
+        <img th:src="${item.itemImage}" alt="" >
+        <div class="title-wrapper">
+            <p>이 약은 <br>
+                <span th:text="${item.itemName}"></span> <br>
+                입니다.
+            </p>
+        </div>
+        <div class="content-wrapper">
+            <p>효능 <br>
+                <span th:text="${item.efcyQesitm}"></span></p>
+            <p>사용법 <br>
+                <span th:text="${item.useMethodQesitm}"></span></p>
+            <p>부작용 <br>
+                <span th:text="${item.seQesitm}"></span></p>
+            <p>주의사항 경고 <br>
+                <span th:text="${item.atpnWarnQesitm}"></span></p>
+            <p>주의사항 <br>
+                <span th:text="${item.atpnQesitm}"></span></p>
+            <p>상호작용 <br>
+                <span th:text="${item.intrcQesitm}"></span></p>
+        </div>
+        <div class="not-important-wrapper">
+            <p>업체명: <span th:text="${item.entpName}"></span></p>\
+            <p>보관법: <span th:text="${item.depositMethodQesitm}"></span></p>
+
+        </div>
+    </div>
 </body>
 </html>
 
