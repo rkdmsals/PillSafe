@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Drug Search Result</title>
+</head>
+<body>
+<h2>검색 결과</h2>
+
+<form action="/search" method="post">
+    <label>
+        <input type="text" name="textResult" placeholder="Enter your search text" />
+    </label>
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+<div th:if="${text}">
+    <h3>Search results for: <span th:text="${text}"></span></h3>
+    <!-- Add more HTML to display search results if needed -->
+</div>
+</body>
+</html>

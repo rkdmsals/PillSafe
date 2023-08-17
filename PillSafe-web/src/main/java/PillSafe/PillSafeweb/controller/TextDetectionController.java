@@ -84,6 +84,32 @@ public class TextDetectionController {
         return DetectText.detectTextFromImage(imageBytes);
     }
 
+    @GetMapping("/search")
+    public String showSearchForm() {
+        return "search";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam("textResult") String text, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("textResult", text); // 결과를 파라미터로 추가
+
+        return "redirect:/getSearchInfo"; // /getDrugInfo 엔드포인트로 리다이렉트
+    }
+
+    @GetMapping("/searchSelected")
+    public String searchSelected(@RequestParam("item") String itemJson, Model model) {
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject item = (JSONObject) parser.parse(itemJson);
+
+            model.addAttribute("item", item);
+        } catch (ParseException e) {
+            e.printStackTrace(); // 예외 처리는 실제 상황에 맞게 수정
+        }
+
+        return "searchSelected"; // View 이름 리턴 (searchSelected.html 등)
+    }
+
 
 
     @GetMapping("/getDrugInfo")
@@ -105,14 +131,32 @@ public class TextDetectionController {
         return "apiResult"; // 리다이렉트 요청
     }
 
+    @GetMapping("/getSearchInfo")
+    public String getSearchInfo(@RequestParam("textResult") String textResult, Model model) {
+        String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
+        String serviceKey = "qAKbXRR4042vBsi3b39VoNv8bKlELiGAo046m1w5E3%2FifqQqoz%2B%2Fp9cel5cGeKAtD0HhA9RDU65b8NIGvd4DqQ%3D%3D";
+
+        // Decode the URL-encoded textResult parameter
+        String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
+
+        // Make the API call and fetch data
+        String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
+
+//       model.addAttribute("apiResponse", apiResponse);
+
+        Parse(apiResponse);  //파싱 로그: 터미널로 확인용
+        jsonResult(apiResponse, model);
+
+        return "searchResult"; // 리다이렉트 요청
+    }
+
     private void jsonResult(String apiString, Model model) {
-        String result = apiString; // JSON 결과 문자열
 
         // Parse JSON result and obtain items
         JSONParserExample parserExample = new JSONParserExample();
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         try {
-            jsonObject = parserExample.parseJson(result);
+            jsonObject = parserExample.parseJson(apiString);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -155,7 +199,7 @@ public class TextDetectionController {
 //        StringBuffer result = new StringBuffer();
         StringBuilder result = new StringBuilder();
         try{
-            String encodedItemName = URLEncoder.encode(itemName, "UTF-8"); // URL 인코딩 적용
+            String encodedItemName = URLEncoder.encode(itemName, StandardCharsets.UTF_8); // URL 인코딩 적용
 
             String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName + "&type=json";
 //            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + itemName;
@@ -180,11 +224,13 @@ public class TextDetectionController {
             }
             br.close();
             urlconnection.disconnect();
-            System.out.println(result.toString());
+            System.out.println(result);
         }
         catch(Exception e){
             e.printStackTrace();
         }
         return result.toString();
     }
+
+
 }
