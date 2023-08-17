@@ -63,9 +63,7 @@
             <img src="../static/logo.png" alt="필세이프 로고">
         </div>
     </header>
-    <!--<div th:each="item, itemInfo : ${items}">-->
     <div class="result-wrapper" th:each="item, itemInfo : ${items}" th:if="${itemInfo.index == 3}">
-        <!--<h3 th:text="'항목[' + (${itemInfo.index} + 1) + ']'" ></h3>-->
         <img th:src="${item.itemImage}" alt="" >
         <div class="title-wrapper">
             <p>이 약은 <br>
@@ -108,11 +106,6 @@
             </button>
 
         </div>
-        <!--        <div class="not-important-wrapper">
-            <p>업체명: <span th:text="${item.entpName}"></span></p>\
-            <p>보관법: <span th:text="${item.depositMethodQesitm}"></span></p>
-
-        </div>-->
     </div>
 </body>
 </html>
