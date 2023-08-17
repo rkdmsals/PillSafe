@@ -5,7 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="user_table")
+@Table(name="board_table")
 @Builder
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
@@ -13,20 +13,22 @@ import jakarta.persistence.*;
 @Getter
 @Setter
 @Data
-public class User {
+public final class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
-    @Column(name = "user_googleId")
-    private String googleId;
+//    @NonNull
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     @NonNull
-    @Column(name="user_username")
-    private String name;
+    @Column(name = "title") //유일하고 최대 길이가 20.
+    private String title;
 
     @NonNull
-    @Column(name="user_email")
-    private String email;
+    @Column(name="content")
+    private String content;
+
 }
