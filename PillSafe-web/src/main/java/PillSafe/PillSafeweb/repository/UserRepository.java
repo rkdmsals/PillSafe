@@ -12,12 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void flush();
     PillSafe.PillSafeweb.Entity.User findByGoogleId(String googleId);
     User findByEmail(String email);
-    List<User> findByAgeGreaterThan(int age);
-    List<User> searchUsersByNameKeyword(String keyword);
-    List<User> findAll();
-    List<User> findAllById(Iterable<Long> ids);
-    long count();
-    void deleteById(Long id);
-    void deleteAll();
+//    List<User> findAll();
+//    List<User> findAllById(Iterable<Long> ids);
+//    long count();
+//    void deleteById(Long id);
+//    void deleteAll();
 
 }
