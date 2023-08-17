@@ -20,5 +20,4 @@ class TableTest {
 
     @Test
     void setContent() {
-    }
-}
+    }}
