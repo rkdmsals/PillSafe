@@ -1,7 +1,9 @@
 package PillSafe.PillSafeweb.controller;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +22,16 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 @Controller
 public class TextDetectionController {
@@ -38,20 +48,31 @@ public class TextDetectionController {
 
     @PostMapping("/upload")
     public String uploadImage(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+        // 화이트리스트에 허용된 파일 확장자들을 정의합니다.
+        List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png");
+
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Please select a file to upload.");
-            return "redirect:/upload"; // Redirect back to the upload page
+            return "redirect:/upload"; // 업로드 페이지로 리다이렉트
         }
 
-        try {
-            String result = DetectText.detectTextFromImage(file.getBytes());
-            System.out.println(result);
-            redirectAttributes.addAttribute("textResult", result); // Add result as a parameter
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("error", "An error occurred while processing the image.");
+        // 업로드된 파일의 확장자를 추출합니다.
+        String originalFilename = file.getOriginalFilename();
+        String fileExtension = StringUtils.getFilenameExtension(originalFilename);
+
+        if (fileExtension != null && allowedExtensions.contains(fileExtension.toLowerCase())) {
+            try {
+                String result = DetectText.detectTextFromImage(file.getBytes());
+                System.out.println(result);
+                redirectAttributes.addAttribute("textResult", result); // 결과를 파라미터로 추가
+            } catch (IOException e) {
+                redirectAttributes.addFlashAttribute("error", "An error occurred while processing the image.");
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Only images with allowed extensions are allowed.");
         }
 
-        return "redirect:/getDrugInfo"; // Redirect to the /getDrugInfo endpoint
+        return "redirect:/getDrugInfo"; // /getDrugInfo 엔드포인트로 리다이렉트
     }
 
     @PostMapping("/detect-text")
@@ -62,6 +83,20 @@ public class TextDetectionController {
 
         return DetectText.detectTextFromImage(imageBytes);
     }
+
+    @GetMapping("/search")
+    public String showSearchForm() {
+        return "search";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam("textResult") String text, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("textResult", text); // 결과를 파라미터로 추가
+
+        return "redirect:/getSearchInfo"; // /getDrugInfo 엔드포인트로 리다이렉트
+    }
+
+
 
 
 
@@ -76,54 +111,83 @@ public class TextDetectionController {
         // Make the API call and fetch data
         String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
 
-        model.addAttribute("apiResponse", apiResponse);
-//        return "apiResult";
-        return "redirect:/show-api-response"; // 리다이렉트 요청
+//       model.addAttribute("apiResponse", apiResponse);
 
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            ApiResponse response = objectMapper.readValue(apiResponse, ApiResponse.class);
-//
-//            if (response != null) {
-//                model.addAttribute("apiResponse", response);
-//            } else {
-//                // Handle the case where the response is null
-//                // For example, you could set an error message in the model
-//                model.addAttribute("errorMessage", "Invalid API response.");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            // Handle the exception, e.g., set an error message in the model
-//            model.addAttribute("errorMessage", "Error parsing API response.");
-//        }
-//
-//        return "apiResult";
+        Parse(apiResponse);  //파싱 로그: 터미널로 확인용
+        jsonResult(apiResponse, model);
 
+        return "apiResult"; // 리다이렉트 요청
     }
 
-//    private String makeApiCall(String apiUrl, String serviceKey, String itemName) {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        // Construct the API request URL with required parameters
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
-//                .queryParam("serviceKey", serviceKey)
-//                .queryParam("itemName", itemName);
-//
-//
-//        System.out.println(serviceKey);
-//        System.out.println(builder.build(false).toUriString());
-//
-////        builder.build(false).toUri();
-////        URI uri = new URI(builder.build(false).toUri());
-////        String jsonString = restTemplate.getForObject(uri, String.class);
-//
-//        return restTemplate.getForObject(builder.build(false).toUri(), String.class);
-//    }
+    @GetMapping("/getSearchInfo")
+    public String getSearchInfo(@RequestParam("textResult") String textResult, Model model) {
+        String apiUrl = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
+        String serviceKey = "qAKbXRR4042vBsi3b39VoNv8bKlELiGAo046m1w5E3%2FifqQqoz%2B%2Fp9cel5cGeKAtD0HhA9RDU65b8NIGvd4DqQ%3D%3D";
+
+        // Decode the URL-encoded textResult parameter
+        String decodedTextResult = UriUtils.decode(textResult, "UTF-8");
+
+        // Make the API call and fetch data
+        String apiResponse = makeApiCall(apiUrl, serviceKey, textResult);
+
+//       model.addAttribute("apiResponse", apiResponse);
+
+        Parse(apiResponse);  //파싱 로그: 터미널로 확인용
+        jsonResult(apiResponse, model);
+
+        return "searchResult"; // 리다이렉트 요청
+    }
+
+    private void jsonResult(String apiString, Model model) {
+
+        // Parse JSON result and obtain items
+        JSONParserExample parserExample = new JSONParserExample();
+        JSONObject jsonObject;
+        try {
+            jsonObject = parserExample.parseJson(apiString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        JSONArray items = parserExample.getItems(jsonObject);
+
+        model.addAttribute("items", items);
+    }
+
+    private void Parse(String result){
+        try {
+            JSONParser jsonParser = new JSONParser();
+            JSONObject object = (JSONObject)jsonParser.parse(result);
+
+            JSONObject parse_object = (JSONObject) object.get("body");
+            JSONArray array = (JSONArray) parse_object.get("items");
+
+            for(int i=0; i<array.size(); i++) {
+                System.out.println("항목[" + (i + 1) + "] ===========================================");
+
+                //배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
+                JSONObject tmp = (JSONObject) array.get(i);
+
+                //JSON name으로 추출
+                System.out.println("업체명 ==> " + tmp.get("entpName"));
+                System.out.println("제품명 ==> " + tmp.get("itemName"));
+                System.out.println("효능 ==> " + tmp.get("efcyQesitm"));
+                System.out.println("사용법 ==> " + tmp.get("useMethodQesitm"));
+                System.out.println("주의사항 경고 ==> " + tmp.get("atpnWarnQesitm"));
+                System.out.println("이미지 경로 ==>" + tmp.get("itemImage"));
+            }
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     private String makeApiCall(String apiUrl, String serviceKey, String itemName){
-        StringBuffer result = new StringBuffer();
+//        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         try{
-            String encodedItemName = URLEncoder.encode(itemName, "UTF-8"); // URL 인코딩 적용
+            String encodedItemName = URLEncoder.encode(itemName, StandardCharsets.UTF_8); // URL 인코딩 적용
 
             String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + encodedItemName + "&type=json";
 //            String urlstr = apiUrl + "?ServiceKey=" + serviceKey + "&itemName=" + itemName;
@@ -134,15 +198,27 @@ public class TextDetectionController {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), StandardCharsets.UTF_8));
 
+            // StringBuffer 일때
+//            String returnLine;
+//            while((returnLine = br.readLine()) != null){
+//                result.append(returnLine);
+//            }
+//            urlconnection.disconnect();
+
+            // String Builder 일때
             String returnLine;
             while((returnLine = br.readLine()) != null){
-                result.append(returnLine + "\n");
+                result.append(returnLine);
             }
+            br.close();
             urlconnection.disconnect();
+            System.out.println(result);
         }
         catch(Exception e){
             e.printStackTrace();
         }
         return result.toString();
     }
+
+
 }

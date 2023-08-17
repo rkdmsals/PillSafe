@@ -1,73 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>카메라 사진 찍기</title>
-  <script>
-    async function capturePhotoAndDetectText() {
-      const videoElement = document.getElementById('video');
-      const canvasElement = document.getElementById('canvas');
 
-      const constraints = { video: true };
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      videoElement.srcObject = stream;
-
-      videoElement.onloadedmetadata = () => {
-        canvasElement.width = videoElement.videoWidth;
-        canvasElement.height = videoElement.videoHeight;
-        canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
-        const photoData = canvasElement.toDataURL('image/png');
-
-        // photoData를 서버로 전송하여 detectText 함수 호출
-        // fetch('/detect-text', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Content-Type': 'application/x-www-form-urlencoded',
-        //   },
-        //   body: 'imageData=' + encodeURIComponent(photoData),
-        // })
-        //         .then(response => response.text())
-        //         .then(result => {
-        //           // 서버로부터 받은 결과(result)를 여기에서 처리하거나 표시
-        //           console.log(result);
-        //         })
-        //         .catch(error => {
-        //           console.error('Error:', error);
-        //         });
-        fetch('/detect-text', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: 'imageData=' + encodeURIComponent(photoData),
-        })
-                .then(response => response.text())
-                .then(result => {
-                  console.log(result); // 로그 출력
-
-                  // window.location.href = `/getDrugInfo?textResult=${encodeURIComponent(result)}`;
-
-                  // 받은 결과(result)를 GET 요청으로 getDrugInfo 함수로 전달
-                  fetch(`/getDrugInfo?textResult=${encodeURIComponent(result)}`)
-                          .then(response => response.text())
-                          .then(apiResponse => {
-                            console.log(apiResponse); // 로그 출력
-                            // 여기에서 apiResponse를 사용하거나 처리
-                          })
-                          .catch(error => {
-                            console.error('Error:', error);
-                          });
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                });
-      };
-    }
-  </script>
+  <link rel="stylesheet" href="../static/camera_style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+  <link rel="shortcut icon" href="../static/favicon.ico">
+  <script src="../static/camera.js"></script>
 </head>
+
 <body>
-<h1>카메라 사진 찍기</h1>
-<video id="video" autoplay></video>
-<button onclick="capturePhotoAndDetectText()">사진 찍기</button>
-<canvas id="canvas" style="display: none;"></canvas>
+  <header>
+    <div class="logo">
+      <img src="../static/logo.png" alt="필세이프 로고">
+    </div>
+  </header>
+  <main>
+    <div class="camera-wrapper">
+      <video id="video" autoplay></video>
+      <button class="circle-button"  onclick="capturePhotoAndDetectText()" aria-label="사진 찍기">
+        <span class="material-symbols-outlined">photo_camera</span>
+      </button>
+      <canvas id="canvas" style="display: none;"></canvas>
+      <div id="result"></div> <!-- 결과를 표시할 DOM 요소 -->
+    </div>
+    <div class="upload-wrapper">
+      <p>이미 찍은 사진이 있다면?</p>
+      <button class="primary-button"  onclick="location.href='upload'" aria-label="파일 업로드">
+        파일 업로드
+      </button>
+    </div>
+  </main>
 </body>
 </html>

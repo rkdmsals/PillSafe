@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/main_style.css">
+  <link rel="shortcut icon" href="../static/favicon.ico">
+  <title>PillSafe</title>
 </head>
 <body>
-mainWeb!!
+  <header>
+    <div class="logo">
+      <img src="../static/logo.png" alt="필세이프 로고">
+    </div>
+  </header>
+  <main>
+    <div class="title-wrapper">
+        <p>
+            안전하고 간편한 <br>
+            의약품 검색, <br>
+            필 세이프
+        </p>
+    </div>
+      <div class="button-wrapper">
+          <button class="main-button" id="camera-button"  onclick="location.href='camera'">
+              카메라로 <br>
+              검색하기
+          </button>
+          <button class="main-button" id="search-button" onclick="location.href='search'">
+              텍스트로 <br>
+              검색하기
+          </button>
+      </div>
+  </main>
 </body>
 </html>

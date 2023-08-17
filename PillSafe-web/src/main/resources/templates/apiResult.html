@@ -1,42 +1,124 @@
 <!--<!DOCTYPE html>-->
 <!--<html>-->
 <!--<head>-->
-<!--    <title>API Result 약 정보 보기!</title>-->
+<!--    <title>API Result</title>-->
 <!--</head>-->
 <!--<body>-->
-<!--<h1>Drug Information</h1>-->
-<!--<div th:each="item : ${apiResponse.body.items}">-->
-<!--    <h2 th:text="${item.entpName}"></h2>-->
-<!--    <p><strong>Item Name:</strong> <span th:text="${item.itemName}"></span></p>-->
-<!--    <p><strong>Effect:</strong> <span th:text="${item.efcyQesitm}"></span></p>-->
-<!--    <p><strong>Usage:</strong> <span th:text="${item.useMethodQesitm}"></span></p>-->
-<!--    <p><strong>Warning:</strong> <span th:text="${item.atpnWarnQesitm}"></span></p>-->
-<!--    <p><strong>Precaution:</strong> <span th:text="${item.atpnQesitm}"></span></p>-->
-<!--    <p><strong>Interaction:</strong> <span th:text="${item.intrcQesitm}"></span></p>-->
-<!--    <p><strong>Side Effects:</strong> <span th:text="${item.seQesitm}"></span></p>-->
-<!--    <p><strong>Storage:</strong> <span th:text="${item.depositMethodQesitm}"></span></p>-->
-<!--    <p><strong>Image:</strong> <img th:src="${item.itemImage}" alt="Item Image" style="max-width: 200px;"></p>-->
-<!--    <hr>-->
+<!--<h1>API Result</h1>-->
+<!--<div id="json-data">-->
+<!--    &lt;!&ndash; JSON 데이터의 내용을 출력 &ndash;&gt;-->
+<!--    <pre>-->
+<!--            {{jsonData}}-->
+<!--    </pre>-->
 <!--</div>-->
 
-<!--<div th:if="${apiResponse != null}">-->
-<!--    &lt;!&ndash; Loop through and display item information &ndash;&gt;-->
-<!--</div>-->
-<!--<div th:if="${errorMessage != null}">-->
-<!--    <p th:text="${errorMessage}"></p>-->
-<!--</div>-->
+<!--<script>-->
+<!--    // JSON 데이터를 예쁘게 포맷팅하여 출력하는 함수-->
+<!--    function formatJson(jsonString) {-->
+<!--        try {-->
+<!--            const parsedData = JSON.parse(jsonString);-->
+<!--            return JSON.stringify(parsedData, null, 2);-->
+<!--        } catch (error) {-->
+<!--            return "Invalid JSON data";-->
+<!--        }-->
+<!--    }-->
 
+<!--    const jsonDataElement = document.getElementById('json-data');-->
+<!--    const jsonDataString = jsonDataElement.textContent.trim();-->
+<!--    const formattedJson = formatJson(jsonDataString);-->
+
+<!--    jsonDataElement.innerHTML = `<pre>${formattedJson}</pre>`;-->
+<!--</script>-->
 <!--</body>-->
 <!--</html>-->
 
 
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>API Result</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<pre th:text="${apiResponse}"></pre>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>API Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+
+    <link rel="stylesheet" href="../static/result_style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="shortcut icon" href="../static/favicon.ico">
+
 </head>
 <body>
-<pre th:text="${apiResponse}"></pre>
+    <header>
+        <div class="logo">
+            <img src="../static/logo.png" alt="필세이프 로고">
+        </div>
+    </header>
+    <!--<div th:each="item, itemInfo : ${items}">-->
+    <div class="result-wrapper" th:each="item, itemInfo : ${items}" th:if="${itemInfo.index == 3}">
+        <!--<h3 th:text="'항목[' + (${itemInfo.index} + 1) + ']'" ></h3>-->
+        <img th:src="${item.itemImage}" alt="" >
+        <div class="title-wrapper">
+            <p>이 약은 <br>
+                <span th:text="${item.itemName}"></span> <br>
+                입니다.
+            </p>
+        </div>
+        <div class="content-wrapper">
+            <p>효능 <br>
+                <span th:text="${item.efcyQesitm}"></span></p>
+            <p>사용법 <br>
+                <span th:text="${item.useMethodQesitm}"></span></p>
+            <p>부작용 <br>
+                <span th:text="${item.seQesitm}"></span></p>
+            <p>주의사항 경고 <br>
+                <span th:text="${item.atpnWarnQesitm}"></span></p>
+            <p>주의사항 <br>
+                <span th:text="${item.atpnQesitm}"></span></p>
+            <p>상호작용 <br>
+                <span th:text="${item.intrcQesitm}"></span></p>
+        </div>
+        <div class="form-wrapper">
+            <h2>검색 결과에 만족하십니까?</h2>
+            <div>
+                <fieldset class="rate">
+                    <input type="radio" id="rating10" name="rating" value="10"><label for="rating10" title="5점"></label>
+                    <input type="radio" id="rating9" name="rating" value="9"><label class="half" for="rating9" title="4.5점"></label>
+                    <input type="radio" id="rating8" name="rating" value="8"><label for="rating8" title="4점"></label>
+                    <input type="radio" id="rating7" name="rating" value="7"><label class="half" for="rating7" title="3.5점"></label>
+                    <input type="radio" id="rating6" name="rating" value="6"><label for="rating6" title="3점"></label>
+                    <input type="radio" id="rating5" name="rating" value="5"><label class="half" for="rating5" title="2.5점"></label>
+                    <input type="radio" id="rating4" name="rating" value="4"><label for="rating4" title="2점"></label>
+                    <input type="radio" id="rating3" name="rating" value="3"><label class="half" for="rating3" title="1.5점"></label>
+                    <input type="radio" id="rating2" name="rating" value="2"><label for="rating2" title="1점"></label>
+                    <input type="radio" id="rating1" name="rating" value="1"><label class="half" for="rating1" title="0.5점"></label>
+                </fieldset>
+            </div>
+            <button class="primary-button" onclick="location.href='form'">
+                제출하기
+            </button>
+
+        </div>
+        <!--        <div class="not-important-wrapper">
+            <p>업체명: <span th:text="${item.entpName}"></span></p>\
+            <p>보관법: <span th:text="${item.depositMethodQesitm}"></span></p>
+
+        </div>-->
+    </div>
 </body>
 </html>
+
+
+
+
+
 
