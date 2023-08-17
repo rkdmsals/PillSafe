@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@react-native-community/cameraroll": "^4.1.2",
+    "fbjs": "^3.0.5",
+    "react-native": "^0.72.4",
+    "react-native-camera": "^4.2.1",
+    "watcher": "^1.1.0"
+  }
+}

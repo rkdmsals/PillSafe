@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap");
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+/* Reset some default styles */
+body, h1, h2, ul {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1A237E;
+    padding: 10px 20px;
+    color: white;
+}
+
+.logo img {
+    width: 180px;
+    padding:8px 90px;
+    height: auto;
+    align-items: center;
+}
+
+/* Main content styles */
+main {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*padding: 20px;*/
+}
+
+.result-wrapper img {
+    width: 100%;
+}
+
+.title-wrapper{
+    padding: 0 24px;
+    font-size: 32px;
+}
+
+.title-wrapper span{
+    font-weight: bold;
+}
+
+.content-wrapper{
+    background-color: #F0F0F0;
+    padding: 24px 24px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content-wrapper span{
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.form-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 24px;
+}
+
+
+.rate { display: inline-block;border: 0;margin-right: 15px;}
+.rate > input {display: none;}
+.rate > label {float: right;color: #ddd}
+.rate > label:before {display: inline-block;font-size: 2rem;padding: .3rem .2rem;margin: 0;cursor: pointer;font-family: FontAwesome;content: "\f005 ";}
+.rate .half:before {content: "\f089 "; position: absolute;padding-right: 0;}
+.rate input:checked ~ label,
+.rate label:hover,.rate label:hover ~ label { color: #F8E438 !important;  }
+.rate input:checked + .rate label:hover,
+.rate input input:checked ~ label:hover,
+.rate input:checked ~ .rate label:hover ~ label,
+.rate label:hover ~ input:checked ~ label { color: #F8E438 !important;  }
+
+/*button style*/
+.primary-button{
+    display: inline-flex;
+    padding: 10px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: #1A237E;
+
+    color: white;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.8px;
+
+}
