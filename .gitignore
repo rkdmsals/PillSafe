@@ -1,7 +1,7 @@
 HELP.md
-.gradle
+PillSafe-web/gradle/.gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
+!PillSafe-web/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -130,9 +130,9 @@ $RECYCLE.BIN/
 *.lnk
 
 ### Gradle ###
-.gradle
+PillSafe-web/gradle/.gradle
 **/build/
-!src/**/build/
+!PillSafe-web/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
